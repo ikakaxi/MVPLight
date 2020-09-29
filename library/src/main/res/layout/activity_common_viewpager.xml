@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- app:extTabSelectedTextColor选中tab的字体颜色 -->
+    <!-- app:extTabSelectedTextSize选中tab的字体大小 -->
+    <!-- app:tabTextAppearance未选中tab的字体颜色和大小 -->
+    <!-- app:tabIndicator="@drawable/indicator",该文件外层设置透明,里层设置Indicator的宽度和弧度,这个文件不能设置颜色,设置的话颜色不正 -->
+    <!-- app:tabIndicatorColor="@color/color_5CC300",设置tabIndicator颜色 -->
+    <!-- 取消tab选中效果-->
+    <!-- app:tabBackground="@color/transparent"-->
+    <!-- app:tabRippleColor="@color/transparent"-->
+    <com.liuhc.mvvmlib.ui.view.ExtTabLayout
+        android:id="@+id/extTabLayout"
+        android:layout_width="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="44dp"
+        android:background="@android:color/white"
+        app:extTabSelectedTextColor="#FF5CC300"
+        app:tabBackground="@android:color/transparent"
+        app:tabIndicator="@drawable/indicator"
+        app:tabIndicatorColor="#FF5CC300"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="#FF5CC300"
+        app:tabTextAppearance="@style/TabText" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/extTabLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

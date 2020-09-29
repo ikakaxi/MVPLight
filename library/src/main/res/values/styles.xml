@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 多状态视图样式-->
+    <style name="common_multiStateStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="msv_viewState">loading</item>
+        <item name="msv_loadingView">@layout/common_layout_state_loading</item>
+        <item name="msv_emptyView">@layout/common_layout_state_empty</item>
+        <item name="msv_errorView">@layout/common_layout_state_error</item>
+    </style>
+
+    <style name="TabText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#55575F</item>
+    </style>
+</resources>

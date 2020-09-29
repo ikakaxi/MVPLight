@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ExtTabLayout">
+        <attr name="extTabSelectedTextColor" format="color"/>
+        <attr name="extTabSelectedTextSize" format="dimension"/>
+    </declare-styleable>
+</resources>
