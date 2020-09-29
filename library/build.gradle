@@ -21,6 +21,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -37,13 +46,17 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:2.7.0"
     api "com.google.code.gson:gson:2.8.6"
     api "com.squareup.retrofit2:adapter-rxjava2:2.7.0"
-    api "me.yokeyword:fragmentationx:1.0.2"
+    api "me.yokeyword:fragmentationx-core:1.0.2"
     api "androidx.viewpager2:viewpager2:1.0.0"
-    api "androidx.constraintlayout:constraintlayout:2.0.1"
+    api "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
     api "com.google.android.material:material:1.2.1"
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
     api "com.github.Kennyc1012:MultiStateView:2.1.2"
     api "com.scwang.smartrefresh:SmartRefreshLayout:1.1.2"
     api "com.github.niniloveyou:StateButton:v1.0.0"
     api 'com.qmuiteam:qmui:2.0.0-alpha10'
+
+    //RxLifecycle
+    api "com.trello.rxlifecycle4:rxlifecycle-kotlin:4.0.0"
+    api "com.trello.rxlifecycle4:rxlifecycle-components:4.0.0"
 }

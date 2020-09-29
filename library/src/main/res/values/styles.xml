@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- application theme. -->
+    <style name="LibraryTheme" parent="QMUI.Compat.NoActionBar"/>
+
     <!-- 多状态视图样式-->
     <style name="common_multiStateStyle">
         <item name="android:layout_width">match_parent</item>

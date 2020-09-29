@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.liuhc.library.R
 import kotlinx.android.synthetic.main.activity_common_viewpager.*
 
-
 /**
  * 描述:所有有ViewPager的页面都可以继承该类,可自定义xTabLayout的背景颜色
  * 作者:liuhaichao

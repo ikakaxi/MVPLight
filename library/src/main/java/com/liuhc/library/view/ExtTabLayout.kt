@@ -1,4 +1,4 @@
-package com.liuhc.mvvmlib.ui.view
+package com.liuhc.library.view
 
 import android.content.Context
 import android.graphics.Color

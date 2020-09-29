@@ -13,7 +13,7 @@
     <!-- 取消tab选中效果-->
     <!-- app:tabBackground="@color/transparent"-->
     <!-- app:tabRippleColor="@color/transparent"-->
-    <com.liuhc.mvvmlib.ui.view.ExtTabLayout
+    <com.liuhc.library.view.ExtTabLayout
         android:id="@+id/extTabLayout"
         android:layout_width="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"

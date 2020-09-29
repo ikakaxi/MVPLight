@@ -5,24 +5,27 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.kennyc.view.MultiStateView
 import com.liuhc.library.R
+import com.liuhc.library.presenter.BasePresenter
 import com.liuhc.library.utils.DimenUtils
-import com.liuhc.library.view.GridSpacingItemDecoration
 import com.liuhc.library.view.ExtSmartRefreshLayout
+import com.liuhc.library.view.GridSpacingItemDecoration
 
 /**
  * 该类的子类有一个可下拉刷新上拉加载的列表
  * @author liuhc
  * @date 2019/7/25
  */
-abstract class CommonPagingFragment<D, A : BaseQuickAdapter<D, *>> : BaseFragment() {
+abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D, BaseViewHolder>>(
+    presenterClass: Class<T>
+) : BaseMVPFragment<T>(presenterClass) {
 
     private lateinit var mRefreshLayout: ExtSmartRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
@@ -135,8 +138,8 @@ abstract class CommonPagingFragment<D, A : BaseQuickAdapter<D, *>> : BaseFragmen
     /*
      * 错误信息提示，默认实现
      */
-    fun onError(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    override fun onError(text: String) {
+        super.onError(text)
         mRefreshLayout.finishRefresh()
     }
 
