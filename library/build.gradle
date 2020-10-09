@@ -41,11 +41,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    def retrofit2Version = "2.7.0"
+
+    api "com.squareup.retrofit2:retrofit:$retrofit2Version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit2Version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
+
     api "com.squareup.okhttp3:okhttp:3.14.4"
-    api "com.squareup.retrofit2:retrofit:2.7.0"
-    api "com.squareup.retrofit2:converter-gson:2.7.0"
     api "com.google.code.gson:gson:2.8.6"
-    api "com.squareup.retrofit2:adapter-rxjava2:2.7.0"
     api "me.yokeyword:fragmentationx-core:1.0.2"
     api "androidx.viewpager2:viewpager2:1.0.0"
     api "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"

@@ -14,17 +14,16 @@ object FragmentManagerHelper {
                     @IdRes containerViewId: Int,
                     fragment: Fragment,
                     tag: String?) {
-        val curFragment = fragmentManager.findFragmentById(containerViewId)
-        fragmentManager
-                .beginTransaction()
-                .apply {
-                    curFragment?.let(::hide)
-                    if (!fragment.isAdded) {
-                        add(containerViewId, fragment, tag)
-                    } else {
-                        show(fragment)
-                    }
-                }
-                .commitAllowingStateLoss()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val childFragments = fragmentManager.fragments
+        for (childFragment in childFragments) {
+            fragmentTransaction.hide(childFragment!!)
+        }
+        if (!fragment.isAdded) {
+            fragmentTransaction.add(containerViewId, fragment, tag)
+        } else {
+            fragmentTransaction.show(fragment)
+        }
+        fragmentTransaction.commitAllowingStateLoss()
     }
 }
