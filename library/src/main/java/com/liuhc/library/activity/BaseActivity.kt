@@ -76,7 +76,7 @@ abstract class BaseActivity :
      * 隐藏加载框，默认实现
      */
     override fun hideLoading() {
-        if (loadingDialog?.isShowing != true) {
+        if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
         }
     }

@@ -43,10 +43,6 @@ abstract class BaseFragment : SupportFragment(), BaseView {
 
     protected abstract fun initViews(view: View, savedInstanceState: Bundle?)
 
-    open fun loadData() {
-
-    }
-
     fun showHideFragment(fragment: Fragment, tag: String, @IdRes fragmentContainerId: Int) {
         FragmentManagerHelper.addOrSwitch(childFragmentManager, fragmentContainerId, fragment, tag)
     }
@@ -83,7 +79,7 @@ abstract class BaseFragment : SupportFragment(), BaseView {
      * 隐藏加载框，默认实现
      */
     override fun hideLoading() {
-        if (loadingDialog?.isShowing != true) {
+        if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
         }
     }

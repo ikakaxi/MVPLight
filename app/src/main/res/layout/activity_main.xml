@@ -6,4 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <fragment
+        android:name="com.liuhc.mvplight.fragment.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/homeFragment" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,10 @@
 package com.liuhc.library.net
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.util.Log
+import com.liuhc.library.activity.BaseApp
 import okhttp3.*
 import okio.Buffer
 import okio.GzipSource
@@ -31,7 +34,7 @@ class LogInterceptor : Interceptor {
         try {
             response = chain.proceed(request)
         } catch (e: Throwable) {
-            Log.d(TAG, "${e.message}, request url=${request.url()}\n")
+            log("${e.message}, request url=${request.url()}\n")
             e.printStackTrace()
             throw e
         }
@@ -74,11 +77,11 @@ class LogInterceptor : Interceptor {
     }
 
     private data class RequestMsg(
-            val url: String,
-            val method: String,
-            val headers: String,
-            val mediaType: MediaType?,
-            val postBody: String?)
+        val url: String,
+        val method: String,
+        val headers: String,
+        val mediaType: MediaType?,
+        val postBody: String?)
 
     @SuppressLint("LogNotTimber")
     private fun printResponse(time: Long, requestMsg: RequestMsg, response: Response) {
@@ -91,11 +94,11 @@ class LogInterceptor : Interceptor {
             //否则在response.body()?.string()方法里会关闭source
             val source = response.body()?.source()
             source?.request(java.lang.Long.MAX_VALUE)
-            contentLength = source?.buffer()?.size() ?: -1L
+            contentLength = source?.buffer?.size() ?: -1L
         }
         val data = getResponseData(response)
         val responseStrBuffer = StringBuffer()
-        Log.d(TAG, "---------------")
+        log("---------------")
         responseStrBuffer.append("<===接收响应: ")
         //请求的url
         responseStrBuffer.append("$requestUrl\n")
@@ -114,9 +117,9 @@ class LogInterceptor : Interceptor {
         responseStrBuffer.append("数据大小: ${formatBytes(contentLength)}\n")
         if (!isStream(mediaType)) {
             responseStrBuffer.append("数据: $data\n")
-            Log.d(TAG, responseStrBuffer.toString())
+            log(responseStrBuffer.toString())
         } else {
-            Log.d(TAG, responseStrBuffer.toString())
+            log(responseStrBuffer.toString())
         }
     }
 
@@ -164,7 +167,7 @@ class LogInterceptor : Interceptor {
             }
         }
         val charset: Charset = response.body()!!.contentType()?.charset(StandardCharsets.UTF_8)
-                ?: StandardCharsets.UTF_8
+            ?: StandardCharsets.UTF_8
         return buffer.clone().readString(charset)
     }
 
@@ -176,5 +179,29 @@ class LogInterceptor : Interceptor {
         requestBody.writeTo(buffer)
         val charset: Charset = requestBody.contentType()?.charset() ?: UTF8
         return buffer.readString(charset)
+    }
+
+    private fun log(msg: String) {
+        if (isDebug()) {
+            Log.d(TAG, msg)
+        }
+    }
+
+    private var isDebug: Boolean? = null
+
+    private fun isDebug(): Boolean {
+        return isDebug!!
+    }
+
+    init {
+        initIsDebug(BaseApp.context)
+    }
+
+    //ctx.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE debug状态下值为2
+    private fun initIsDebug(ctx: Context) {
+        if (isDebug == null) {
+            isDebug = ctx.applicationInfo != null &&
+                    ctx.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE !== 0
+        }
     }
 }

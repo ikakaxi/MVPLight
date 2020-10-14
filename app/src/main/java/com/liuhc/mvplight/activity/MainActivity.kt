@@ -7,7 +7,7 @@ import com.liuhc.mvplight.R
 class MainActivity : BaseActivity() {
 
     override fun init(savedInstanceState: Bundle?) {
-        showLoading()
+
     }
 
     override fun getContentView() = R.layout.activity_main

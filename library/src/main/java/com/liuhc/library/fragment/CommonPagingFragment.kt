@@ -23,9 +23,7 @@ import com.liuhc.library.view.GridSpacingItemDecoration
  * @author liuhc
  * @date 2019/7/25
  */
-abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D, BaseViewHolder>>(
-    presenterClass: Class<T>
-) : BaseMVPFragment<T>(presenterClass) {
+abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D, BaseViewHolder>> : BaseMVPFragment<T>() {
 
     private lateinit var mRefreshLayout: ExtSmartRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
@@ -147,12 +145,7 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
         mRecyclerView.addOnScrollListener(listener)
     }
 
-    /**
-     * 如果有分页数据,建议调此方法
-     * 该方法可以在获取到数据后就可以判断是否有下一页
-     */
-    fun setPageList(page: Page<MutableList<D>>) {
-        val list = page.rows
+    private fun setList(list: List<D>, hasNextPage: () -> Boolean) {
         if (list.isNotEmpty()) {//获取到的数据不为空
             //重新设置为可以上拉加载更多
             mRefreshLayout.resetNoMoreData()
@@ -161,9 +154,7 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
                 mAdapter.setList(list)
             } else {//上拉加载
                 mAdapter.addData(list)
-                //-------------下面是两个方法判断page是否+1的区别------------
-                if (mAdapter.itemCount < page.total) {
-                    //如果列表里的数据小于分页最大数据才page+1
+                if (hasNextPage()) {
                     mCurrentPage++
                     //完成加载并标记还可以获取更多数据
                     mRefreshLayout.finishLoadMore()
@@ -189,39 +180,24 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
     }
 
     /**
+     * 如果有分页数据,建议调此方法
+     * 该方法可以在获取到数据后就可以判断是否有下一页
+     */
+    fun setList(page: Page<List<D>>) {
+        setList(page.rows) {
+            //如果列表里的数据小于分页最大数据才page+1
+            mAdapter.itemCount < page.total
+        }
+    }
+
+    /**
      * 如果数据不分页或者服务器返回数据分页但是没有分页数据,就调此方法
      * 该方法在获取到数据后无法判断是否有下一页,只有下一页数据为空才知道数据是否已全部获取到
      */
-    fun setList(list: MutableList<D>) {
-        if (list.isNotEmpty()) {//获取到的数据不为空
-            //重新设置为可以上拉加载更多
-            mRefreshLayout.resetNoMoreData()
-            if (mIsFirstPage) {//下拉刷新
-                mRefreshLayout.finishRefresh()
-                mAdapter.setList(list)
-            } else {//上拉加载
-                mAdapter.addData(list)
-                //-------------下面是两个方法判断page是否+1的区别------------
-                if (mRefreshLayout.enableLoadMore()) {
-                    //如果可以上拉加载才page+1
-                    mCurrentPage++
-                    //完成加载并标记还可以获取更多数据
-                    mRefreshLayout.finishLoadMore()
-                }
-                //-------------上面是两个方法判断page是否+1的区别------------
-            }
-            mMultiStateView.viewState = MultiStateView.ViewState.CONTENT
-        } else {//获取到的数据为空
-            if (mIsFirstPage) {//下拉刷新
-                mRefreshLayout.finishRefresh()
-                mAdapter.setList(arrayListOf())
-            } else {//上拉加载
-                //完成加载并标记没有更多数据
-                mRefreshLayout.finishLoadMoreWithNoMoreData()
-            }
-            if (mAdapter.itemCount == 0) {//本次没有获取到数据并且之前也没有数据
-                mMultiStateView.viewState = MultiStateView.ViewState.EMPTY
-            }
+    fun setList(list: List<D>) {
+        setList(list) {
+            //如果可以上拉加载才page+1
+            mRefreshLayout.enableLoadMore()
         }
     }
 
@@ -296,7 +272,6 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
 
     data class Page<out T>(
         val page: Int,
-        val pages: Int,
         val total: Int,
         val rows: T
     )

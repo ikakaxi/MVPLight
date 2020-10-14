@@ -13,9 +13,7 @@ import com.liuhc.library.presenter.BasePresenter
  * 作者:liuhaichao
  * 创建日期：2020/8/19 on 11:50 AM
  */
-abstract class CommonPagingActivity<T : BasePresenter, D, A : BaseQuickAdapter<D, BaseViewHolder>>(
-    presenterClass: Class<T>
-) : BaseMVPActivity<T>(presenterClass) {
+abstract class CommonPagingActivity<T : BasePresenter, D, A : BaseQuickAdapter<D, BaseViewHolder>> : BaseMVPActivity<T>() {
 
     companion object {
         const val PAGING_FRAGMENT_TAG = "PAGING_FRAGMENT_TAG"
@@ -29,7 +27,7 @@ abstract class CommonPagingActivity<T : BasePresenter, D, A : BaseQuickAdapter<D
         super.onCreate(savedInstanceState)
         innerCommonPagingFragment =
             supportFragmentManager.findFragmentByTag(PAGING_FRAGMENT_TAG) as? CommonPagingActivity<T, D, A>.InnerCommonPagingFragment
-                ?: InnerCommonPagingFragment(presenterClass)
+                ?: InnerCommonPagingFragment()
         showHideFragment(
             innerCommonPagingFragment!!,
             PAGING_FRAGMENT_TAG,
@@ -41,12 +39,13 @@ abstract class CommonPagingActivity<T : BasePresenter, D, A : BaseQuickAdapter<D
 
     abstract fun onGetAdapter(): A
 
-    inner class InnerCommonPagingFragment(presenterClass: Class<T>) :
-        CommonPagingFragment<T, D, A>(presenterClass) {
+    inner class InnerCommonPagingFragment : CommonPagingFragment<T, D, A>() {
 
         override fun onGetAdapter() = this@CommonPagingActivity.onGetAdapter()
 
         override fun getContentView() = this@CommonPagingActivity.getContentView()
+
+        override fun loadData() = this@CommonPagingActivity.loadData()
 
     }
 
