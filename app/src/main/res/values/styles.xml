@@ -7,4 +7,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- 内容区域 -->
+    <style name="superTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="sLeftTextSize">15sp</item>
+        <item name="sRightIconRes">@drawable/common_ic_next</item>
+        <item name="sRightTextColor">#666666</item>
+        <item name="sRightTextSize">13sp</item>
+        <item name="sBottomDividerLineMarginLeft">15dp</item>
+        <item name="sLeftViewMarginLeft">15dp</item>
+        <item name="sLeftIconMarginLeft">15dp</item>
+        <item name="sRightIconMarginRight">15dp</item>
+        <item name="sRightViewMarginRight">15dp</item>
+        <item name="sDividerLineColor">#ededed</item>
+    </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.liuhc.mvplight.bean
+package com.liuhc.mvplight.common
 
 /**
  * 描述:

@@ -1,9 +1,9 @@
-package com.liuhc.mvplight.bean
+package com.liuhc.mvplight.module.common.bean
 
 /**
  * 公众号
  */
-data class PublicArticle(
+data class PublicArticleBean(
     val courseId: Int,
     val id: Int,
     val name: String,

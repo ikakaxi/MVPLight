@@ -184,7 +184,7 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
      * 该方法可以在获取到数据后就可以判断是否有下一页
      */
     fun setList(page: Page<List<D>>) {
-        setList(page.rows) {
+        setList(page.rows ?: listOf()) {
             //如果列表里的数据小于分页最大数据才page+1
             mAdapter.itemCount < page.total
         }
@@ -273,6 +273,6 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
     data class Page<out T>(
         val page: Int,
         val total: Int,
-        val rows: T
+        val rows: T?
     )
 }

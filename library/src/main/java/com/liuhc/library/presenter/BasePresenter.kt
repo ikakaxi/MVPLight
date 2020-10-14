@@ -25,6 +25,9 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
         block: suspend CoroutineScope.() -> Unit
     ) = scope.launch(Dispatchers.Main + CoroutineExceptionHandler { _, e ->
         e.printStackTrace()
+        if (showLoading) {
+            baseView.hideLoading()
+        }
         baseView.onError(e.message ?: "未知错误")
     }) {
         if (showLoading) {
