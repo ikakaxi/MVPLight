@@ -86,6 +86,7 @@ class LogInterceptor : Interceptor {
     @SuppressLint("LogNotTimber")
     private fun printResponse(time: Long, requestMsg: RequestMsg, response: Response) {
         val requestUrl = requestMsg.url
+        val responseUrl = response.request().url().toString()
         val mediaType = response.body()?.contentType()
         val code = response.code()
         var contentLength = response.body()?.contentLength()
@@ -101,9 +102,12 @@ class LogInterceptor : Interceptor {
         log("---------------")
         responseStrBuffer.append("<===接收响应: ")
         //请求的url
-        responseStrBuffer.append("$requestUrl\n")
-//        responseStrBuffer.append("请求的url:${request.url()}\n")
-//        responseStrBuffer.append("返回的url:${response.request().url()}\n")
+        if (requestUrl == responseUrl) {
+            responseStrBuffer.append("$requestUrl\n")
+        } else {
+            responseStrBuffer.append("请求的url:$requestUrl\n")
+            responseStrBuffer.append("返回的url:$responseUrl\n")
+        }
         responseStrBuffer.append("code: $code\n")
         responseStrBuffer.append("耗时: ${(time / 1e6).format(2)}ms\n")
         responseStrBuffer.append("method: ${requestMsg.method}\n")
