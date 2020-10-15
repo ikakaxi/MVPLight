@@ -55,7 +55,6 @@ dependencies {
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
     api "com.github.Kennyc1012:MultiStateView:2.1.2"
     api "com.scwang.smartrefresh:SmartRefreshLayout:1.1.2"
-    api "com.github.niniloveyou:StateButton:v1.0.0"
     api 'com.qmuiteam:qmui:2.0.0-alpha10'
     //RxLifecycle
     api "com.trello.rxlifecycle4:rxlifecycle-kotlin:4.0.0"

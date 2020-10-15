@@ -4,7 +4,6 @@ package com.liuhc.mvplight.module.user.bean
  *
  * @Description:
  * @author: bxb
- * @email:baixiaobing@shihuituan.com
  * @Date: 2020/10/15
  */
 data class UserBean(

@@ -11,7 +11,6 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.IOException
 import java.lang.reflect.Type
-import kotlin.jvm.Throws
 
 /**
  * 描述:
