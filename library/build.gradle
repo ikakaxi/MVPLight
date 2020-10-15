@@ -72,4 +72,5 @@ dependencies {
      * 对于 liveData，请使用 androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha01 或更高版本。
      */
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01"
+    api "me.jessyan:autosize:1.1.2"
 }

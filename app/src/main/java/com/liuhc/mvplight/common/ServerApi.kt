@@ -4,6 +4,7 @@ import com.liuhc.mvplight.module.home.bean.BannerBean
 import com.liuhc.mvplight.module.home.bean.HomeBean
 import com.liuhc.mvplight.module.home.bean.TopArticleBean
 import com.liuhc.mvplight.module.me.bean.CollectBean
+import com.liuhc.mvplight.module.user.bean.UserBean
 import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -63,4 +64,10 @@ interface ServerApi {
      */
     @POST("/lg/uncollect/{id}/json")
     suspend fun cancelCollect(@Path("id") id: String, @Field("originId") originId: String): BaseBean<*>
+
+    /**
+     * 登录页面
+     */
+    @POST("/user/login")
+    suspend fun login(@Path("username") username: String, @Field("password") password: String): BaseBean<UserBean>
 }
