@@ -15,18 +15,18 @@ import com.liuhc.mvplight.module.home.bean.TopArticleBean
 class HomeAdapter : BaseQuickAdapter<TopArticleBean, BaseViewHolder>(R.layout.item_public) {
 
     override fun convert(holder: BaseViewHolder, item: TopArticleBean) {
-        holder.setGone(R.id.newTv, !item.fresh)
-            .setText(R.id.authorTv, item.author)
-            .setText(R.id.timeTv, item.niceDate)
+        holder.setGone(R.id.tvNew, !item.fresh)
+            .setText(R.id.tvAuthor, item.author)
+            .setText(R.id.tvTime, item.niceDate)
             .setText(
-                R.id.chapterNameTv, Html.fromHtml(
+                R.id.tvChapterName, Html.fromHtml(
                     formatChapterName(
                         item.superChapterName,
                         item.chapterName
                     )
                 )
             )
-        holder.getView<TextView>(R.id.titleTv).apply {
+        holder.getView<TextView>(R.id.tvTitle).apply {
             text = Html.fromHtml(item.title)
             setSingleLine(!TextUtils.isEmpty(item.desc))
         }
@@ -38,7 +38,7 @@ class HomeAdapter : BaseQuickAdapter<TopArticleBean, BaseViewHolder>(R.layout.it
                 visibility = View.VISIBLE
             }
         }
-        holder.getView<TextView>(R.id.tagTv).apply {
+        holder.getView<TextView>(R.id.tvTag).apply {
             if (item.tags.isNotEmpty()) {
                 text = item.tags[0].name
                 visibility = View.VISIBLE
@@ -46,7 +46,7 @@ class HomeAdapter : BaseQuickAdapter<TopArticleBean, BaseViewHolder>(R.layout.it
                 visibility = View.GONE
             }
         }
-        holder.getView<TextView>(R.id.descTv).apply {
+        holder.getView<TextView>(R.id.tvDesc).apply {
             if (TextUtils.isEmpty(item.desc)) {
                 visibility = View.GONE
             } else {

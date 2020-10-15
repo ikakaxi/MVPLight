@@ -8,65 +8,71 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <RelativeLayout
-        android:id="@+id/topLayout"
+    <TextView
+        android:id="@+id/tvNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="新"
+        android:textColor="@color/text_main"
+        android:textSize="@dimen/text_notes"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/tvNew"
+        android:textColor="@color/selector_text_color_article_author"
+        android:textSize="@dimen/text_notes"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvNew"
+        app:layout_constraintLeft_toRightOf="@id/tvNew"
+        app:layout_goneMarginStart="0dp"
+        tools:text="林帅并不帅" />
+
+    <TextView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvAuthor"
+        android:layout_alignBottom="@id/tvAuthor"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/tvAuthor"
+        android:background="@drawable/selector_article_tag_bg"
+        android:gravity="center"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:textColor="@color/selector_text_color_article_tag"
+        android:textSize="@dimen/text_time"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvNew"
+        app:layout_constraintLeft_toRightOf="@id/tvAuthor"
+        app:layout_goneMarginStart="0dp"
+        tools:text="项目" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/text_third"
+        android:textSize="@dimen/text_notes"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvNew"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="21小时前" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrierTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tvNew,tvAuthor,tvTag,tvTime"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/newTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
-            android:text="新"
-            android:textColor="@color/text_main"
-            android:textSize="@dimen/text_notes"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/authorTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/newTv"
-            android:textColor="@color/selector_text_color_article_author"
-            android:textSize="@dimen/text_notes"
-            tools:text="林帅并不帅" />
-
-        <TextView
-            android:id="@+id/tagTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/authorTv"
-            android:layout_alignBottom="@id/authorTv"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@id/authorTv"
-            android:background="@drawable/selector_article_tag_bg"
-            android:gravity="center"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
-            android:textColor="@color/selector_text_color_article_tag"
-            android:textSize="@dimen/text_time"
-            tools:text="项目" />
-
-        <TextView
-            android:id="@+id/timeTv"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_alignTop="@id/authorTv"
-            android:layout_alignBottom="@id/authorTv"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textColor="@color/text_third"
-            android:textSize="@dimen/text_notes"
-            tools:text="21小时前" />
-
-    </RelativeLayout>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <com.joooonho.SelectableRoundedImageView
         android:id="@+id/image"
@@ -76,7 +82,7 @@
         android:scaleType="fitXY"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topLayout"
+        app:layout_constraintTop_toBottomOf="@id/barrierTop"
         app:sriv_left_bottom_corner_radius="3dp"
         app:sriv_left_top_corner_radius="3dp"
         app:sriv_right_bottom_corner_radius="3dp"
@@ -86,10 +92,11 @@
 
 
     <TextView
-        android:id="@+id/titleTv"
+        android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
@@ -99,12 +106,13 @@
         android:textSize="@dimen/text_content"
         app:layout_constraintLeft_toRightOf="@id/image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/barrierTop"
+        app:layout_goneMarginStart="0dp"
         tools:singleLine="true"
         tools:text="公众号文章列表强势上线公众号文章列表强势公众号文章列表强势上线公众号文章列表强势" />
 
     <TextView
-        android:id="@+id/descTv"
+        android:id="@+id/tvDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -118,13 +126,22 @@
         android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@id/image"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTv"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_goneMarginStart="0dp"
         tools:text="公众号文章列表强势上线"
         tools:visibility="visible" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="image,tvDesc"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/topTv"
+        android:id="@+id/tvTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -132,20 +149,20 @@
         android:textColor="@color/text_accent"
         android:textSize="@dimen/text_notes"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
         tools:ignore="HardcodedText" />
 
 
     <TextView
-        android:id="@+id/chapterNameTv"
+        android:id="@+id/tvChapterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/selector_text_color_article_chapter"
         android:textSize="@dimen/text_notes"
-        app:layout_constraintLeft_toRightOf="@id/topTv"
-        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvTop"
+        app:layout_constraintLeft_toRightOf="@id/tvTop"
         tools:text="动画效果·Lottie" />
 
 
