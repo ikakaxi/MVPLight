@@ -8,7 +8,6 @@
     <color name="toast_bg">#000000</color>
     <color name="ripple_dark">#11000000</color>
     <color name="ripple_light">#11ffffff</color>
-
     <!--通用颜色-->
     <color name="main">#4282f4</color>
     <color name="main_alpha">#994282f4</color>
