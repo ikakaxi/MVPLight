@@ -46,6 +46,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$retrofit2Version"
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
 
+    //noinspection GradleDependency
     api "com.squareup.okhttp3:okhttp:3.14.9"
     api "com.google.code.gson:gson:2.8.6"
     api "me.yokeyword:fragmentationx-core:1.0.2"
