@@ -154,15 +154,14 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
                 mAdapter.setList(list)
             } else {//上拉加载
                 mAdapter.addData(list)
-                if (hasNextPage()) {
-                    mCurrentPage++
-                    //完成加载并标记还可以获取更多数据
-                    mRefreshLayout.finishLoadMore()
-                } else {
-                    //完成加载并标记没有更多数据
-                    mRefreshLayout.finishLoadMoreWithNoMoreData()
-                }
-                //-------------上面是两个方法判断page是否+1的区别------------
+            }
+            if (hasNextPage()) {
+                mCurrentPage++
+                //完成加载并标记还可以获取更多数据
+                mRefreshLayout.finishLoadMore()
+            } else {
+                //完成加载并标记没有更多数据
+                mRefreshLayout.finishLoadMoreWithNoMoreData()
             }
             mMultiStateView.viewState = MultiStateView.ViewState.CONTENT
         } else {//获取到的数据为空

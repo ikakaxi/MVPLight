@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liuhc.library.R
-import kotlinx.android.synthetic.main.activity_common_viewpager.*
+import kotlinx.android.synthetic.main.common_activity_viewpager.*
 
 /**
  * 描述:所有有ViewPager的页面都可以继承该类,可自定义xTabLayout的背景颜色
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_common_viewpager.*
  */
 abstract class CommonViewPagerActivity : BaseActivity() {
 
-    override fun getContentView() = R.layout.activity_common_viewpager
+    override fun getContentView() = R.layout.common_activity_viewpager
 
     private lateinit var viewPagerAdapter: CommonViewPagerAdapter
 

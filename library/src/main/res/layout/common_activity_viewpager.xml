@@ -23,7 +23,7 @@
         android:background="@android:color/white"
         app:extTabSelectedTextColor="#FF5CC300"
         app:tabBackground="@android:color/transparent"
-        app:tabIndicator="@drawable/indicator"
+        app:tabIndicator="@drawable/common_indicator"
         app:tabIndicatorColor="#FF5CC300"
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed"

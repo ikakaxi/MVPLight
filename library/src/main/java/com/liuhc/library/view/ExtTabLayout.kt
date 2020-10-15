@@ -26,7 +26,7 @@ class ExtTabLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
             override fun onTabSelected(tab: Tab) {
                 val view: View? = tab.customView
                 if (null == view) {
-                    tab.setCustomView(R.layout.tab_textview)
+                    tab.setCustomView(R.layout.common_tab_textview)
                 }
                 val textView: TextView = tab.customView!!.findViewById(android.R.id.text1)
                 if (selectedTextColor != Color.BLACK) {
