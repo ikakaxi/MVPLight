@@ -1,12 +1,13 @@
 package com.liuhc.mvplight
 
+import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.liuhc.library.activity.BaseApp
 import com.liuhc.library.net.LogInterceptor
 import com.liuhc.library.net.NullTypeAdapterFactory
 import com.liuhc.library.net.RetrofitFactory
 import com.liuhc.library.utils.SDCardUtil
+import com.liuhc.library.utils.ToastUtil
 import okhttp3.Cache
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -18,9 +19,9 @@ import java.io.File
  * 作者:liuhaichao
  * 创建日期：2020/9/29 on 3:35 PM
  */
-class App : BaseApp() {
+class App : Application() {
 
-    companion object{
+    companion object {
         lateinit var retrofit: Retrofit
             private set
     }
@@ -28,6 +29,7 @@ class App : BaseApp() {
     override fun onCreate() {
         super.onCreate()
         retrofit = createRetrofit()
+        ToastUtil.init(this, R.layout.layout_toast)
     }
 
     private fun createRetrofit(): Retrofit {
@@ -41,7 +43,7 @@ class App : BaseApp() {
             .disableHtmlEscaping()
             .create()
         retrofit = RetrofitFactory().baseUrl("https://www.wanandroid.com")
-            .interceptors(LogInterceptor())
+            .interceptors(LogInterceptor(BuildConfig.DEBUG))
             .timeOutSecond(10)
             .convertersFactories(GsonConverterFactory.create(gson))
             .callAdapterFactories(RxJava2CallAdapterFactory.create())

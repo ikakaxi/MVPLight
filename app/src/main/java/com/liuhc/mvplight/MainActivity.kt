@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.liuhc.library.activity.BaseActivity
-import com.liuhc.mvplight.module.me.fragment.MeFragment
 import com.liuhc.mvplight.module.home.fragment.HomeFragment
+import com.liuhc.mvplight.module.me.fragment.MeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import me.yokeyword.fragmentation.ISupportFragment
 

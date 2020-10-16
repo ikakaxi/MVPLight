@@ -7,6 +7,7 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import com.liuhc.library.presenter.view.BaseView
 import com.liuhc.library.utils.FragmentManagerHelper
+import com.liuhc.library.utils.ToastUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 
 /**
@@ -85,6 +86,10 @@ abstract class BaseActivity :
      * 错误信息提示，默认实现
      */
     override fun onError(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+        toast(text, true)
+    }
+
+    fun toast(msg: String, long: Boolean = false) {
+        ToastUtil.show(msg, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT)
     }
 }

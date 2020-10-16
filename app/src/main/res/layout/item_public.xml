@@ -43,7 +43,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@id/tvAuthor"
-        android:background="@drawable/selector_article_tag_bg"
+        android:background="@drawable/selector_bg_tag"
         android:gravity="center"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
