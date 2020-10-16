@@ -1,14 +1,15 @@
 package com.liuhc.mvplight.module.home.presenter
 
+import com.liuhc.library.fragment.CommonPagingFragment
 import com.liuhc.library.presenter.BasePresenter
 import com.liuhc.library.presenter.view.BaseView
 import com.liuhc.mvplight.App
 import com.liuhc.mvplight.common.ServerApi
 import com.liuhc.mvplight.module.home.bean.BannerBean
-import com.liuhc.mvplight.module.home.bean.HomeBean
-import com.liuhc.mvplight.module.home.bean.TopArticleBean
+import com.liuhc.mvplight.module.home.bean.PackArticleBean
 import com.liuhc.mvplight.module.me.bean.CollectBean
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 
 /**
  * 描述:
@@ -18,23 +19,51 @@ import kotlinx.coroutines.CoroutineScope
 class HomePresenter(baseView: BaseView, scope: CoroutineScope) :
     BasePresenter(baseView, scope) {
 
+    private var topArticleListCount = 0
+
     /**
-     * 置顶文章
+     * 置顶文章列表和首页文章列表
      */
-    fun getTopArticle(callback: (List<TopArticleBean>) -> Unit) {
+    fun getTopAndHomeArticleList(page: Int, callback: (CommonPagingFragment.Page<PackArticleBean>) -> Unit) {
+        launchUI {
+            val topArticleListDeferred = async {
+                App.retrofit.create(ServerApi::class.java).getTopArticle().check()
+            }
+            val homeArticleDeferred = async {
+                App.retrofit.create(ServerApi::class.java).getHomeArticle(page).check()
+            }
+            val list = mutableListOf<PackArticleBean>()
+            val topArticleList = topArticleListDeferred.await()
+            topArticleListCount = topArticleList.size
+            val homeArticle = homeArticleDeferred.await()
+            list.addAll(topArticleList.map { PackArticleBean(it, true) })
+            list.addAll(homeArticle.datas?.map { PackArticleBean(it) } ?: listOf())
+            callback(CommonPagingFragment.Page(1, homeArticle.total + topArticleList.size, list))
+        }
+    }
+
+    /**
+     * 置顶文章列表
+     */
+    fun getTopArticle(callback: (List<PackArticleBean>) -> Unit) {
         launchUI {
             val topArticleList = App.retrofit.create(ServerApi::class.java).getTopArticle().check()
-            callback(topArticleList)
+            callback(topArticleList.map { PackArticleBean(it) })
         }
     }
 
     /**
      * 首页文章列表
      */
-    fun getHome(page: Int, callback: (HomeBean) -> Unit) {
+    fun getHomeArticle(page: Int, callback: (CommonPagingFragment.Page<PackArticleBean>) -> Unit) {
         launchUI {
-            val homeBean = App.retrofit.create(ServerApi::class.java).getHomeArticle(page).check()
-            callback(homeBean)
+            val homeArticle = App.retrofit.create(ServerApi::class.java).getHomeArticle(page).check()
+            callback(
+                CommonPagingFragment.Page(
+                    homeArticle.curPage,
+                    homeArticle.total + topArticleListCount,
+                    homeArticle.datas?.map { PackArticleBean(it) })
+            )
         }
     }
 

@@ -136,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="image,tvDesc"
+        app:constraint_referenced_ids="image,tvDesc,tvTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -161,8 +161,9 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/selector_text_color_article_chapter"
         android:textSize="@dimen/text_notes"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvTop"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
         app:layout_constraintLeft_toRightOf="@id/tvTop"
+        app:layout_goneMarginStart="0dp"
         tools:text="动画效果·Lottie" />
 
 

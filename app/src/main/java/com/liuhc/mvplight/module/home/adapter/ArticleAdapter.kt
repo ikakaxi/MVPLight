@@ -10,12 +10,14 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.liuhc.library.ext.load
 import com.liuhc.library.utils.StringUtils
 import com.liuhc.mvplight.R
-import com.liuhc.mvplight.module.home.bean.TopArticleBean
+import com.liuhc.mvplight.module.home.bean.PackArticleBean
 
-class HomeAdapter : BaseQuickAdapter<TopArticleBean, BaseViewHolder>(R.layout.item_public) {
+class ArticleAdapter : BaseQuickAdapter<PackArticleBean, BaseViewHolder>(R.layout.item_public) {
 
-    override fun convert(holder: BaseViewHolder, item: TopArticleBean) {
+    override fun convert(holder: BaseViewHolder, data: PackArticleBean) {
+        val item = data.data
         holder.setGone(R.id.tvNew, !item.fresh)
+            .setGone(R.id.tvTop, !data.isTop)
             .setText(R.id.tvAuthor, item.author)
             .setText(R.id.tvTime, item.niceDate)
             .setText(

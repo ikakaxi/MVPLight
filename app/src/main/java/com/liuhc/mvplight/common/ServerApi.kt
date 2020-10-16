@@ -1,8 +1,8 @@
 package com.liuhc.mvplight.common
 
 import com.liuhc.mvplight.module.home.bean.BannerBean
-import com.liuhc.mvplight.module.home.bean.HomeBean
-import com.liuhc.mvplight.module.home.bean.TopArticleBean
+import com.liuhc.mvplight.module.home.bean.HomeArticleBean
+import com.liuhc.mvplight.module.home.bean.ArticleBean
 import com.liuhc.mvplight.module.me.bean.CollectBean
 import com.liuhc.mvplight.module.user.bean.UserBean
 import retrofit2.http.Field
@@ -21,13 +21,13 @@ interface ServerApi {
      * 置顶文章
      */
     @GET("article/top/json")
-    suspend fun getTopArticle(): BaseBean<List<TopArticleBean>>
+    suspend fun getTopArticle(): BaseBean<List<ArticleBean>>
 
     /**
      * 首页文章列表
      */
     @GET("/article/list/{page}/json")
-    suspend fun getHomeArticle(@Path("page") page: Int): BaseBean<HomeBean>
+    suspend fun getHomeArticle(@Path("page") page: Int): BaseBean<HomeArticleBean>
 
     /**
      * 首页banner
@@ -57,7 +57,7 @@ interface ServerApi {
      * 取消收藏(文章列表)
      */
     @POST("/lg/uncollect_originId/{id}/json")
-    suspend fun cancelCollect(@Path("id") id: Int): BaseBean<HomeBean>
+    suspend fun cancelCollect(@Path("id") id: Int): BaseBean<HomeArticleBean>
 
     /**
      * 取消收藏(我的收藏页面)

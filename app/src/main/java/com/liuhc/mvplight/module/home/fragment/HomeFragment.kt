@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.liuhc.library.fragment.CommonPagingFragment
 import com.liuhc.mvplight.R
-import com.liuhc.mvplight.module.home.adapter.HomeAdapter
-import com.liuhc.mvplight.module.home.bean.TopArticleBean
+import com.liuhc.mvplight.module.home.adapter.ArticleAdapter
+import com.liuhc.mvplight.module.home.bean.PackArticleBean
 import com.liuhc.mvplight.module.home.presenter.HomePresenter
 
 /**
@@ -13,7 +13,7 @@ import com.liuhc.mvplight.module.home.presenter.HomePresenter
  * 作者:liuhaichao
  * 创建日期：2020/10/13 on 4:46 PM
  */
-class HomeFragment : CommonPagingFragment<HomePresenter, TopArticleBean, HomeAdapter>() {
+class HomeFragment : CommonPagingFragment<HomePresenter, PackArticleBean, ArticleAdapter>() {
 
     override fun initViews(view: View, savedInstanceState: Bundle?) {
         super.initViews(view, savedInstanceState)
@@ -22,12 +22,16 @@ class HomeFragment : CommonPagingFragment<HomePresenter, TopArticleBean, HomeAda
         }
     }
 
-    override fun onGetAdapter(): HomeAdapter = HomeAdapter()
+    override fun onGetAdapter(): ArticleAdapter = ArticleAdapter()
 
     override fun getContentView(): Int = R.layout.common_list
 
     override fun loadData() {
-        mPresenter.getTopArticle(::setList)
+        if (mIsFirstPage) {
+            mPresenter.getTopAndHomeArticleList(mCurrentPage - 1, ::setPageList)
+        } else {
+            mPresenter.getHomeArticle(mCurrentPage - 1, ::setPageList)
+        }
     }
 
     override fun doGetRootViewBg() = R.color.line

@@ -1,6 +1,6 @@
 package com.liuhc.mvplight.module.home.bean
 
-data class TopArticleBean(
+data class ArticleBean(
     val apkLink: String,
     val audit: Int,
     val author: String,

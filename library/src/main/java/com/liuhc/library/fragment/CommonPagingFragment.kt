@@ -29,7 +29,7 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mMultiStateView: MultiStateView
     private var autoLoadOnResume = false
-    private val mIsFirstPage: Boolean
+    protected val mIsFirstPage: Boolean
         get() = mCurrentPage == 1
 
     protected lateinit var mAdapter: A
@@ -182,7 +182,7 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
      * 如果有分页数据,建议调此方法
      * 该方法可以在获取到数据后就可以判断是否有下一页
      */
-    fun setList(page: Page<List<D>>) {
+    fun setPageList(page: Page<D>) {
         setList(page.rows ?: listOf()) {
             //如果列表里的数据小于分页最大数据才page+1
             mAdapter.itemCount < page.total
@@ -272,6 +272,6 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
     data class Page<out T>(
         val page: Int,
         val total: Int,
-        val rows: T?
+        val rows: List<T>?
     )
 }
