@@ -1,6 +1,6 @@
 package com.liuhc.library.utils
 
-import android.content.Context
+import android.app.Application
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -20,7 +20,7 @@ object ToastUtil {
     /**
      * 在Application里初始化Toast
      */
-    fun init(context: Context, @LayoutRes toastLayout: Int) {
+    fun init(context: Application, @LayoutRes toastLayout: Int) {
         if (!::toast.isInitialized) {
             val rootView = LayoutInflater.from(context).inflate(toastLayout, null)
             textView = rootView.findViewById(R.id.text)

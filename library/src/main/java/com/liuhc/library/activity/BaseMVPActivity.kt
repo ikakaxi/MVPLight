@@ -3,7 +3,7 @@ package com.liuhc.library.activity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.liuhc.library.presenter.BasePresenter
-import com.liuhc.library.presenter.view.BaseView
+import com.liuhc.library.view.BaseView
 import com.liuhc.library.utils.TUtils
 import kotlinx.coroutines.CoroutineScope
 

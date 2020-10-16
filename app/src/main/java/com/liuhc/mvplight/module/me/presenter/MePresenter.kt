@@ -1,7 +1,7 @@
 package com.liuhc.mvplight.module.me.presenter
 
 import com.liuhc.library.presenter.BasePresenter
-import com.liuhc.library.presenter.view.BaseView
+import com.liuhc.library.view.BaseView
 import kotlinx.coroutines.CoroutineScope
 
 /**

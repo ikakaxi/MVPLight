@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import com.liuhc.library.presenter.view.BaseView
+import com.liuhc.library.view.BaseView
 import com.liuhc.library.utils.FragmentManagerHelper
 import com.liuhc.library.utils.ToastUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog

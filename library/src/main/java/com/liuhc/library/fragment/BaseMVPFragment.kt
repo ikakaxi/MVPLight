@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.liuhc.library.presenter.BasePresenter
-import com.liuhc.library.presenter.view.BaseView
+import com.liuhc.library.view.BaseView
 import com.liuhc.library.utils.TUtils
 import kotlinx.coroutines.CoroutineScope
 

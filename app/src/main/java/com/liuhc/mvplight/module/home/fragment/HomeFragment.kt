@@ -2,6 +2,7 @@ package com.liuhc.mvplight.module.home.fragment
 
 import android.os.Bundle
 import android.view.View
+import com.liuhc.library.activity.WebViewActivity
 import com.liuhc.library.fragment.CommonPagingFragment
 import com.liuhc.mvplight.R
 import com.liuhc.mvplight.module.home.adapter.ArticleAdapter
@@ -17,8 +18,9 @@ class HomeFragment : CommonPagingFragment<HomePresenter, PackArticleBean, Articl
 
     override fun initViews(view: View, savedInstanceState: Bundle?) {
         super.initViews(view, savedInstanceState)
-        mAdapter.setOnItemClickListener { _, _, _ ->
-
+        mAdapter.setOnItemClickListener { _, _, position ->
+            val data = mAdapter.getItem(position)
+            WebViewActivity.show(requireContext(), data.data.link)
         }
     }
 

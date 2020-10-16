@@ -1,6 +1,6 @@
 package com.liuhc.library.presenter
 
-import com.liuhc.library.presenter.view.BaseView
+import com.liuhc.library.view.BaseView
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

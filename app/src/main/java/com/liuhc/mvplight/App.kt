@@ -3,6 +3,7 @@ package com.liuhc.mvplight
 import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.liuhc.library.LibraryInitHelper
 import com.liuhc.library.net.LogInterceptor
 import com.liuhc.library.net.NullTypeAdapterFactory
 import com.liuhc.library.net.RetrofitFactory
@@ -13,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+
 
 /**
  * 描述:
@@ -29,6 +31,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         retrofit = createRetrofit()
+        LibraryInitHelper.init(this)
         ToastUtil.init(this, R.layout.layout_toast)
     }
 

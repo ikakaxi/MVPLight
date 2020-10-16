@@ -1,7 +1,7 @@
 package com.liuhc.mvplight.module.user.presenter
 
 import com.liuhc.library.presenter.BasePresenter
-import com.liuhc.library.presenter.view.BaseView
+import com.liuhc.library.view.BaseView
 import com.liuhc.mvplight.App
 import com.liuhc.mvplight.common.ServerApi
 import com.liuhc.mvplight.module.user.bean.UserBean
