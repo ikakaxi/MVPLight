@@ -30,5 +30,7 @@ class HomeFragment : CommonPagingFragment<HomePresenter, TopArticleBean, HomeAda
         mPresenter.getTopArticle(::setList)
     }
 
+    override fun doGetRootViewBg() = R.color.line
+
     override fun doGetItemOffsets() = arrayOf(0f, 1f, 0f, 0f)
 }
