@@ -50,8 +50,8 @@ class MainActivity : BaseActivity() {
         //我的
         var aboutMeFragment: ISupportFragment? = null
 
-        homeFragment = findFragment(homeFragment?.javaClass)
-        aboutMeFragment = findFragment(aboutMeFragment?.javaClass)
+        homeFragment = findFragment(HomeFragment::class.java)
+        aboutMeFragment = findFragment(MeFragment::class.java)
         if (homeFragment == null) {
             mFragments.add(HomeFragment())
             mFragments.add(MeFragment())
