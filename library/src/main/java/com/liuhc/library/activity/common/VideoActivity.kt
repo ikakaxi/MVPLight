@@ -1,10 +1,11 @@
-package com.liuhc.library.activity
+package com.liuhc.library.activity.common
 
 import android.os.Bundle
 import com.liuhc.library.R
+import com.liuhc.library.activity.BaseMVPActivity
 import com.liuhc.library.ext.onClick
 import com.liuhc.library.presenter.BasePresenter
-import kotlinx.android.synthetic.main.activity_video.*
+import kotlinx.android.synthetic.main.common_activity_video.*
 
 /**
  * 描述:统一视频播放页
@@ -22,7 +23,7 @@ class VideoActivity : BaseMVPActivity<BasePresenter>() {
         }
         val videoUrl = intent.getStringExtra("videoUrl")
         lifecycle.addObserver(customVideoView)
-        customVideoView.initVideoPlayer(videoUrl)
+        customVideoView.initVideoPlayer(videoUrl!!)
         customVideoView.start()
     }
 
@@ -33,6 +34,6 @@ class VideoActivity : BaseMVPActivity<BasePresenter>() {
         super.onBackPressedSupport()
     }
 
-    override fun getContentView(): Int = R.layout.activity_video
+    override fun getContentView(): Int = R.layout.common_activity_video
 
 }

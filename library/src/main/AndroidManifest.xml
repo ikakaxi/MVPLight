@@ -13,7 +13,13 @@
 
     <application>
         <activity
-            android:name=".activity.WebViewActivity"
+            android:name=".activity.common.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.common.VideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.common.MediaBrowseActivity"
             android:screenOrientation="portrait" />
         <!--2.增加Service声明,该Service仅在TBS内核首次Dex加载时触发并执行dex2oat任务，任务完成后自动结束。-->
         <service

@@ -138,7 +138,7 @@ abstract class CommonPagingFragment<T : BasePresenter, D, A : BaseQuickAdapter<D
      */
     override fun onError(text: String) {
         super.onError(text)
-        mRefreshLayout.finishRefresh()
+        setList(listOf())
     }
 
     fun addRecyclerViewScrollListener(listener: RecyclerView.OnScrollListener) {

@@ -1,4 +1,4 @@
-package com.liuhc.library.msg
+package com.liuhc.library.event.msg
 
 /**
  * 描述:请求获取GridView等控件中对应View的位置

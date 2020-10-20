@@ -15,6 +15,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.liuhc.library.R
 import com.liuhc.library.glide.GlideApp
 import com.liuhc.library.presenter.BasePresenter
+import kotlinx.coroutines.Dispatchers
 import java.util.regex.Pattern
 
 /**
@@ -128,10 +129,12 @@ private fun getBitmapFormUrl(url: String?, kind: Int): Bitmap? {
  *  截取视频第一帧,可以获取本地或者网络视频的第一帧,速度较慢,但是获取网络视频的第一帧比loadFirstFrame方法快
  */
 fun <T : BasePresenter> loadFirstFrameFromNet(url: String, t: T, callback: (Bitmap) -> Unit) {
-    t.launchUI {
+    t.launchUI(blockCoroutineContext = Dispatchers.IO) {
         val bitmap = getBitmapFormUrl(url, MediaStore.Images.Thumbnails.MINI_KIND)
         bitmap?.let {
-            callback(it)
+            t.launchUI {
+                callback(it)
+            }
         }
     }
 }

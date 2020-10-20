@@ -84,4 +84,6 @@ dependencies {
     //视频播放
     api 'com.shuyu:gsyVideoPlayer-java:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-x86:7.1.6'
 }

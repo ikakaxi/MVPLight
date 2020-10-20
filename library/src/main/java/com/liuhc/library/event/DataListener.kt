@@ -18,13 +18,13 @@ object DataListener {
         var instanceToCallbackList: MutableMap<Any, MutableList<(Any) -> Unit>>? = null
         if (!map.containsKey(dataClass)) {
             map[dataClass] = mutableMapOf()
-            instanceToCallbackList = map[dataClass]
         }
+        instanceToCallbackList = map[dataClass]
         var callbackList: MutableList<(Any) -> Unit>? = null
         if (!instanceToCallbackList!!.containsKey(instance)) {
             instanceToCallbackList[instance] = mutableListOf()
-            callbackList = instanceToCallbackList[instance]
         }
+        callbackList = instanceToCallbackList[instance]
         callbackList!!.add {
             callback(it as T)
         }

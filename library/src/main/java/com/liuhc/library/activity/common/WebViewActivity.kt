@@ -1,9 +1,10 @@
-package com.liuhc.library.activity
+package com.liuhc.library.activity.common
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.liuhc.library.R
+import com.liuhc.library.activity.BaseActivity
 import kotlinx.android.synthetic.main.common_activity_webview.*
 
 /**

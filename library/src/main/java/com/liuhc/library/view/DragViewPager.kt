@@ -8,6 +8,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.*
 import android.widget.ImageView
@@ -16,12 +17,12 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.liuhc.library.R
 import com.liuhc.library.event.DataListener
-import com.liuhc.library.msg.ResponseOriginViewData
-import com.liuhc.library.msg.RequestOriginViewData
+import com.liuhc.library.event.msg.RequestOriginViewData
+import com.liuhc.library.event.msg.ResponseOriginViewData
 import com.liuhc.library.utils.NetworkUtils
 import com.liuhc.library.utils.ScreenUtils
 import com.liuhc.library.utils.ViewHelper
-import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -87,20 +88,20 @@ class DragViewPager : ViewPager {
             }
 
             override fun instantiateItem(container: ViewGroup, position: Int): Any {
-                var view: View? = null
+                var view: View
                 when {
-                    mediaFileList[position].type.contains("image") -> {
+                    mediaFileList[position].isVideo -> {
+                        view = getVideoView(position)
+                        container.addView(view)
+                    }
+                    else -> {
                         view = CustomPhotoView(context)
                         view.initParams(ImageView.ScaleType.FIT_CENTER)
                         view = getImageView(position, view)
                         container.addView(view)
                     }
-                    mediaFileList[position].type.contains("video") -> {
-                        view = getVideoView(position)
-                        container.addView(view)
-                    }
                 }
-                return view!!
+                return view
             }
 
             private fun getVideoView(position: Int): View {
@@ -447,14 +448,6 @@ class DragViewPager : ViewPager {
         customPhotoViewMap.clear()
     }
 
-    class FilesBean : Serializable {
-        //缩略图
-        var thumbnailUrl: String = ""
-
-        //原图
-        var originalImgUrl: String = ""
-
-        //image or video
-        var type: String = ""
-    }
+    @Parcelize
+    data class FilesBean(val originalImgUrl: String, val isVideo: Boolean = false) : Parcelable
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import com.liuhc.library.event.DataListener
 import com.liuhc.library.view.BaseView
 import com.liuhc.library.utils.FragmentManagerHelper
 import com.liuhc.library.utils.ToastUtil
@@ -91,5 +92,10 @@ abstract class BaseActivity :
 
     fun toast(msg: String, long: Boolean = false) {
         ToastUtil.show(msg, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT)
+    }
+
+    override fun onDestroy() {
+        DataListener.destroy(this)
+        super.onDestroy()
     }
 }

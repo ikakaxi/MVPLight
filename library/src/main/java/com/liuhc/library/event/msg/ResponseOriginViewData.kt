@@ -1,4 +1,4 @@
-package com.liuhc.library.msg
+package com.liuhc.library.event.msg
 
 /**
  * 描述:GridView等控件中对应View的位置
