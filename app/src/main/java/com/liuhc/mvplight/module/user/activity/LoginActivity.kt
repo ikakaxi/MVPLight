@@ -17,18 +17,25 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        etUserName.setOnFocusChangeListener() { v, hasFocus ->
+            ivIconUser.isSelected = hasFocus
+        }
+        etPassword.setOnFocusChangeListener() { v, hasFocus ->
+            ivIconPassword.isSelected = hasFocus
+        }
         tvLoginSubmit.onClick {
             if (TextUtils.isEmpty(etUserName.text.toString())) {
-                Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show()
+                toast( "用户名不能为空", false)
                 return@onClick
             }
             if (TextUtils.isEmpty(etPassword.text.toString())) {
-                Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show()
+                toast("密码不能为空",false)
                 return@onClick
             }
             mPresenter.login(etUserName.text.toString(), etPassword.text.toString()) {
-                Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show()
+                toast("登录成功", false)
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
     }
