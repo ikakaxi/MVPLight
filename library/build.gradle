@@ -79,4 +79,11 @@ dependencies {
     api "me.jessyan:autosize:1.1.2"
 
     api 'com.tencent.tbs.tbssdk:sdk:43939'
+    api 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    //视频播放
+    api 'com.shuyu:gsyVideoPlayer-java:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-x86:7.1.6'
 }
