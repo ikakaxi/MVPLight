@@ -12,8 +12,8 @@ import me.yokeyword.fragmentation.ISupportFragment
 class MainActivity : BaseActivity() {
 
     private val mTitles = arrayOf("首页", "我的")
-    private val mIconUnSelectIds = intArrayOf(R.mipmap.tab_home_normal, R.mipmap.tab_user_normal)
-    private val mIconSelectIds = intArrayOf(R.mipmap.tab_home_press, R.mipmap.tab_user_press)
+    private val mIconUnSelectIds = intArrayOf(R.drawable.tab_home_normal, R.drawable.tab_user_normal)
+    private val mIconSelectIds = intArrayOf(R.drawable.tab_home_press, R.drawable.tab_user_press)
     private val mFragments = mutableListOf<ISupportFragment>()
 
     override fun init(savedInstanceState: Bundle?) {
