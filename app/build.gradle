@@ -24,11 +24,13 @@ android {
         }
     }
 
+    //配置 Java 编译器兼容 Java 1.8
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    //配置 Kotlin 编译器以 Java 1.8 的规范生成字节码
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
