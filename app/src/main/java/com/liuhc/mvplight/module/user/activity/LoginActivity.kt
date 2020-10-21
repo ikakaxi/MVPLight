@@ -3,7 +3,6 @@ package com.liuhc.mvplight.module.user.activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Toast
 import com.liuhc.library.activity.BaseMVPActivity
 import com.liuhc.mvplight.MainActivity
 import com.liuhc.mvplight.R
@@ -17,18 +16,25 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        etUserName.setOnFocusChangeListener { _, hasFocus ->
+            ivIconUser.isSelected = hasFocus
+        }
+        etPassword.setOnFocusChangeListener { _, hasFocus ->
+            ivIconPassword.isSelected = hasFocus
+        }
         tvLoginSubmit.onClick {
             if (TextUtils.isEmpty(etUserName.text.toString())) {
-                Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show()
+                toast("用户名不能为空")
                 return@onClick
             }
             if (TextUtils.isEmpty(etPassword.text.toString())) {
-                Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show()
+                toast("密码不能为空")
                 return@onClick
             }
             mPresenter.login(etUserName.text.toString(), etPassword.text.toString()) {
-                Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show()
+                toast("登录成功")
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
     }

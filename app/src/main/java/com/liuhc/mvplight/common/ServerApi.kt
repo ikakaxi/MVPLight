@@ -5,10 +5,7 @@ import com.liuhc.mvplight.module.home.bean.HomeArticleBean
 import com.liuhc.mvplight.module.home.bean.ArticleBean
 import com.liuhc.mvplight.module.me.bean.CollectBean
 import com.liuhc.mvplight.module.user.bean.UserBean
-import retrofit2.http.Field
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * 描述:
@@ -68,6 +65,7 @@ interface ServerApi {
     /**
      * 登录页面
      */
+    @FormUrlEncoded
     @POST("/user/login")
-    suspend fun login(@Path("username") username: String, @Field("password") password: String): BaseBean<UserBean>
+    suspend fun login(@Field("username") username: String, @Field("password") password: String): BaseBean<UserBean>
 }

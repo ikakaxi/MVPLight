@@ -12,7 +12,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
         <item name="sLeftTextSize">15sp</item>
-        <item name="sRightIconRes">@drawable/common_ic_next</item>
+        <item name="sRightIconRes">@drawable/ic_next</item>
         <item name="sRightTextColor">#666666</item>
         <item name="sRightTextSize">13sp</item>
         <item name="sBottomDividerLineMarginLeft">15dp</item>
