@@ -43,9 +43,6 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
             launch(blockCoroutineExceptionHandler) {
                 block()
             }
-            if (showLoading) {
-                baseView.hideLoading()
-            }
         }.invokeOnCompletion {
             if (showLoading) {
                 baseView.hideLoading()
