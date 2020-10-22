@@ -30,12 +30,7 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
         // 处理协程异常
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
             e.printStackTrace()
-            scope.launch(Dispatchers.Main) {
-                if (showLoading) {
-                    baseView.hideLoading()
-                }
-                baseView.onError(e.message ?: "未知错误")
-            }
+            scope.launch(Dispatchers.Main) { baseView.onError(e.message ?: "未知错误") }
         }
         // UI协程上下文+处理协程异常
         val uiCoroutineExceptionHandler = Dispatchers.Main + coroutineExceptionHandler
@@ -48,6 +43,10 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
             launch(blockCoroutineExceptionHandler) {
                 block()
             }
+            if (showLoading) {
+                baseView.hideLoading()
+            }
+        }.invokeOnCompletion {
             if (showLoading) {
                 baseView.hideLoading()
             }
