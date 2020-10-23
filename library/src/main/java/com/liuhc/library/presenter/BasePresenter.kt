@@ -42,9 +42,10 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
             }
             launch(blockCoroutineExceptionHandler) {
                 block()
+                // 不捕获该异常的话,在控制台上也看不到该异常的堆栈跟踪信息的打印.这是因为在被取消的协程中 CancellationException 被认为是协程执行结束的正常原因
                 // Cancellation是有特殊语义,捕获了意味着需要手动处理取消.CoroutineExceptionHandler不会捕获该异常,这个对外面没啥影响
-                // 协程正常运行时被取消,就会产生该异常,如在协程里直接调用cancel(),或者delay时间未到job就被取消,或者网络没返回的时候scope取消了.
-                // 因为本项目的scope是lifecycleScope,在这里如果捕获到该异常说明页面被销毁了
+                // 协程正常运行时被取消,就会产生该异常,如在协程里直接调用cancel(),或者delay时间未到job就被取消,或者网络没返回的时候scope取消了等等.
+                // 因为本项目的scope是lifecycleScope,在这里如果手动捕获到该异常说明页面被销毁了
 //                try {
 //                    block()
 //                } catch (e: CancellationException) {
