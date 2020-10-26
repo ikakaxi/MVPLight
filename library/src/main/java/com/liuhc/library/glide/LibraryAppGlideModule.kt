@@ -9,6 +9,7 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import java.io.InputStream
 
+
 /**
  * 描述:
  *  Glide v4 使用注解处理器 (Annotation Processor) 来生成出一个 API,在Application模块中可使用该流式API一次性调用到RequestBuilder,RequestOptions和集成库中所有的选项。
