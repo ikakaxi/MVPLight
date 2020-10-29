@@ -1,0 +1,18 @@
+命名规范:
+adapter里用的layout，起名开头item_xxx.xml
+activity里用的layout，起名开头activity_xxx.xml
+fragment里用的layout，起名开头fragment_xxx.xml
+自定义view的layout，起名开头view_xxx.xml
+drawable下文件命名：业务功能描述_控件描述_控件状态限定词 例如 login_btn_pressed tabs_icon_home_normal
+常用控件缩写
+LinearLayout ll
+RelativeLayout rl
+ConstraintLayout cl
+ListView lv
+ScollView sv
+TextView tv
+Button btn
+ImageView iv
+CheckBox cb
+RadioButton rb
+EditText et

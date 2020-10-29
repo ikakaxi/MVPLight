@@ -68,4 +68,10 @@ interface ServerApi {
     @FormUrlEncoded
     @POST("/user/login")
     suspend fun login(@Field("username") username: String, @Field("password") password: String): BaseBean<UserBean>
+    /**
+     * 注册
+     */
+    @FormUrlEncoded
+    @POST("/user/register")
+    suspend fun register(@Field("username") username: String, @Field("password") password: String, @Field("repassword") confirmPassword: String): BaseBean<UserBean>
 }

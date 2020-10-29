@@ -13,13 +13,22 @@ import kotlinx.coroutines.CoroutineScope
  * @author: bxb
  * @Date: 2020/10/15
  */
-class LoginPresenter(baseView: BaseView, scope: CoroutineScope) : BasePresenter(baseView, scope) {
+class UserPresenter(baseView: BaseView, scope: CoroutineScope) : BasePresenter(baseView, scope) {
     /**
      * 登录
      */
     fun login(username: String, password: String, callback: (UserBean) -> Unit) {
         launchUI {
             val userBean = App.retrofit.create(ServerApi::class.java).login(username, password).check()
+            callback(userBean)
+        }
+    }
+    /**
+     * 注册
+     */
+    fun register(username: String, password: String,confirmPassword:String, callback: (UserBean) -> Unit) {
+        launchUI {
+            val userBean = App.retrofit.create(ServerApi::class.java).register(username, password,confirmPassword).check()
             callback(userBean)
         }
     }

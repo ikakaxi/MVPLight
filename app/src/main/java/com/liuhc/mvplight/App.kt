@@ -1,6 +1,8 @@
 package com.liuhc.mvplight
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.liuhc.library.LibraryInitHelper
@@ -22,7 +24,6 @@ import java.io.File
  * 创建日期：2020/9/29 on 3:35 PM
  */
 class App : Application() {
-
     companion object {
         lateinit var retrofit: Retrofit
             private set
@@ -54,5 +55,4 @@ class App : Application() {
             .create()
         return retrofit
     }
-
 }
