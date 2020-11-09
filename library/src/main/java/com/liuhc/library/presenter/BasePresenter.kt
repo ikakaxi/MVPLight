@@ -40,7 +40,7 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
             if (showLoading) {
                 baseView.showLoading()
             }
-            launch(blockCoroutineExceptionHandler) {
+            withContext(blockCoroutineExceptionHandler) {
                 block()
                 // 不捕获该异常的话,在控制台上也看不到该异常的堆栈跟踪信息的打印.这是因为在被取消的协程中 CancellationException 被认为是协程执行结束的正常原因
                 // Cancellation是有特殊语义,捕获了意味着需要手动处理取消.CoroutineExceptionHandler不会捕获该异常,这个对外面没啥影响
@@ -53,10 +53,14 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
 //                    throw e
 //                }
             }
-        }.invokeOnCompletion {
             if (showLoading) {
                 baseView.hideLoading()
             }
         }
+//            .invokeOnCompletion {
+//            if (showLoading) {
+//                baseView.hideLoading()
+//            }
+//        }
     }
 }
