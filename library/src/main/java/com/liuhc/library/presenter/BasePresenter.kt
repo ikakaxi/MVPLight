@@ -6,7 +6,8 @@ import kotlin.coroutines.CoroutineContext
 
 /**
  * ================================================
- * MVP中P层 基类
+ * MVP中P层的基类
+ * 都在BaseMVPActivity和BaseMVPFragment里通过反射实例化
  * Created by liuhc on 2019/11/8
  * ================================================
  */
