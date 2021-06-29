@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.CallSuper
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.liuhc.library.activity.base.BaseMVPActivity
 import com.liuhc.library.fragment.CommonPagingFragment
 import com.liuhc.library.presenter.BasePresenter
 

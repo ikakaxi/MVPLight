@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liuhc.library.R
+import com.liuhc.library.activity.base.BaseActivity
 import kotlinx.android.synthetic.main.common_activity_viewpager.*
 
 /**

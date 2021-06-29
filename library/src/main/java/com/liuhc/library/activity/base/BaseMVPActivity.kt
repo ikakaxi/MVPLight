@@ -1,10 +1,9 @@
-package com.liuhc.library.fragment
+package com.liuhc.library.activity
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.liuhc.library.presenter.BasePresenter
-import com.liuhc.library.view.BaseView
+import com.liuhc.library.view.base.BaseView
 import com.liuhc.library.utils.TUtils
 import kotlinx.coroutines.CoroutineScope
 
@@ -13,11 +12,11 @@ import kotlinx.coroutines.CoroutineScope
  * 作者:liuhaichao
  * 创建日期：2020/9/29 on 6:57 PM
  */
-abstract class BaseMVPFragment<T : BasePresenter>() :
-    BaseFragment() {
+abstract class BaseMVPActivity<T : BasePresenter> :
+    BaseActivity() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         loadData()
     }
 

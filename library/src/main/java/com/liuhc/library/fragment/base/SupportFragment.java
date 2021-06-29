@@ -9,7 +9,7 @@ import android.view.animation.Animation;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.liuhc.library.activity.SupportActivity;
+import com.liuhc.library.activity.base.SupportActivity;
 import com.trello.rxlifecycle4.components.support.RxFragment;
 
 import me.yokeyword.fragmentation.ExtraTransaction;

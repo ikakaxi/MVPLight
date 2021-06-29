@@ -1,15 +1,12 @@
-package com.liuhc.library.fragment
+package com.liuhc.library.activity
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import com.liuhc.library.event.DataListener
-import com.liuhc.library.view.BaseView
+import com.liuhc.library.view.base.BaseView
 import com.liuhc.library.utils.FragmentManagerHelper
 import com.liuhc.library.utils.ToastUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
@@ -19,22 +16,19 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
  * 作者:liuhaichao
  * 创建日期：2019-10-13 on 17:55
  */
-abstract class BaseFragment : SupportFragment(), BaseView {
+abstract class BaseActivity :
+    SupportActivity(),
+    BaseView {
 
     private var loadingDialog: Dialog? = null
-    private var mRootView: View? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if (mRootView == null) {
-            mRootView = inflater.inflate(getContentView(), null)
-            initViews(mRootView!!, savedInstanceState)
-        }
-        return mRootView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(getContentView())
+        init(savedInstanceState)
     }
+
+    abstract fun init(savedInstanceState: Bundle?)
 
     /**
      * 获取布局layout的资源id
@@ -43,10 +37,13 @@ abstract class BaseFragment : SupportFragment(), BaseView {
      */
     abstract fun getContentView(): Int
 
-    protected abstract fun initViews(view: View, savedInstanceState: Bundle?)
-
     fun showHideFragment(fragment: Fragment, tag: String, @IdRes fragmentContainerId: Int) {
-        FragmentManagerHelper.addOrSwitch(childFragmentManager, fragmentContainerId, fragment, tag)
+        FragmentManagerHelper.addOrSwitch(
+            supportFragmentManager,
+            fragmentContainerId,
+            fragment,
+            tag
+        )
     }
 
     /*
@@ -55,7 +52,7 @@ abstract class BaseFragment : SupportFragment(), BaseView {
     override fun showLoading() {
         loadingDialog?.dismiss()
         if (loadingDialog?.isShowing != true) {
-            loadingDialog = QMUITipDialog.Builder(requireContext())
+            loadingDialog = QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create()
@@ -69,7 +66,7 @@ abstract class BaseFragment : SupportFragment(), BaseView {
     override fun showLoading(text: String) {
         loadingDialog?.dismiss()
         if (loadingDialog?.isShowing != true) {
-            loadingDialog = QMUITipDialog.Builder(requireContext())
+            loadingDialog = QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord(text)
                 .create()
