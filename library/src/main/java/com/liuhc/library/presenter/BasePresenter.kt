@@ -1,6 +1,6 @@
 package com.liuhc.library.presenter
 
-import com.liuhc.library.view.BaseView
+import com.liuhc.library.view.base.BaseView
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

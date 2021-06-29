@@ -1,8 +1,8 @@
 package com.liuhc.mvplight.module.home.presenter
 
-import com.liuhc.library.fragment.CommonPagingFragment
+import com.liuhc.library.fragment.ext.CommonPagingFragment
 import com.liuhc.library.presenter.BasePresenter
-import com.liuhc.library.view.BaseView
+import com.liuhc.library.view.base.BaseView
 import com.liuhc.mvplight.App
 import com.liuhc.mvplight.common.ServerApi
 import com.liuhc.mvplight.module.home.bean.BannerBean

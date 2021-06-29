@@ -3,7 +3,7 @@ package com.liuhc.mvplight.module.home.fragment
 import android.os.Bundle
 import android.view.View
 import com.liuhc.library.activity.common.WebViewActivity
-import com.liuhc.library.fragment.CommonPagingFragment
+import com.liuhc.library.fragment.ext.CommonPagingFragment
 import com.liuhc.mvplight.R
 import com.liuhc.mvplight.module.home.adapter.ArticleAdapter
 import com.liuhc.mvplight.module.home.bean.PackArticleBean

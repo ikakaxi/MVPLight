@@ -1,12 +1,11 @@
 package com.liuhc.mvplight
 
 import android.os.Bundle
-import com.flyco.tablayout.listener.CustomTabEntity
-import com.flyco.tablayout.listener.OnTabSelectListener
-import com.liuhc.library.activity.BaseActivity
+//import com.flyco.tablayout.listener.CustomTabEntity
+//import com.flyco.tablayout.listener.OnTabSelectListener
+import com.liuhc.library.activity.base.BaseActivity
 import com.liuhc.mvplight.module.home.fragment.HomeFragment
 import com.liuhc.mvplight.module.me.fragment.MeFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import me.yokeyword.fragmentation.ISupportFragment
 
 class MainActivity : BaseActivity() {
@@ -27,17 +26,17 @@ class MainActivity : BaseActivity() {
      *  初始化底部导航切换事件
      */
     private fun initBottomNav() {
-        bottomNavBar.setTabData(ArrayList(mTitles.mapIndexed { index, s ->
-            TabEntity(s, mIconSelectIds[index], mIconUnSelectIds[index])
-        }))
-        bottomNavBar.setOnTabSelectListener(object : OnTabSelectListener {
-            override fun onTabSelect(position: Int) {
-                showHideFragment(mFragments[position])
-            }
-
-            override fun onTabReselect(position: Int) {
-            }
-        })
+//        bottomNavBar.setTabData(ArrayList(mTitles.mapIndexed { index, s ->
+//            TabEntity(s, mIconSelectIds[index], mIconUnSelectIds[index])
+//        }))
+//        bottomNavBar.setOnTabSelectListener(object : OnTabSelectListener {
+//            override fun onTabSelect(position: Int) {
+//                showHideFragment(mFragments[position])
+//            }
+//
+//            override fun onTabReselect(position: Int) {
+//            }
+//        })
 
     }
 
@@ -69,17 +68,17 @@ class MainActivity : BaseActivity() {
     }
 
     private fun switchTab(position: Int) {
-        bottomNavBar.currentTab = position
+//        bottomNavBar.currentTab = position
         //上面的代码并没有调用OnTabSelectListener的方法，所以加上下面的代码解决该第三方框架的bug
         showHideFragment(mFragments[position])
     }
 
-    private class TabEntity(private val title: String, private val selectedIcon: Int, private val unSelectedIcon: Int) : CustomTabEntity {
-
-        override fun getTabUnselectedIcon(): Int = unSelectedIcon
-
-        override fun getTabSelectedIcon(): Int = selectedIcon
-
-        override fun getTabTitle(): String = title
-    }
+//    private class TabEntity(private val title: String, private val selectedIcon: Int, private val unSelectedIcon: Int) : CustomTabEntity {
+//
+//        override fun getTabUnselectedIcon(): Int = unSelectedIcon
+//
+//        override fun getTabSelectedIcon(): Int = selectedIcon
+//
+//        override fun getTabTitle(): String = title
+//    }
 }

@@ -1,4 +1,4 @@
-package com.liuhc.library.activity;
+package com.liuhc.library.activity.base;
 
 import android.os.Bundle;
 import android.view.MotionEvent;

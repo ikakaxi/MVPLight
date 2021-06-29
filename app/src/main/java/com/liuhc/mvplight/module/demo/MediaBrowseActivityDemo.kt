@@ -1,7 +1,7 @@
 package com.liuhc.mvplight.module.demo
 
 import android.os.Bundle
-import com.liuhc.library.activity.BaseActivity
+import com.liuhc.library.activity.base.BaseActivity
 import com.liuhc.library.activity.common.MediaBrowseActivity
 import com.liuhc.library.ext.onClick
 import com.liuhc.library.view.DragViewPager

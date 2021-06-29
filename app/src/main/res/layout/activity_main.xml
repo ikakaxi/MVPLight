@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.flyco.tablayout.CommonTabLayout
+    <com.liuhc.library.view.ExtTabLayout
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"

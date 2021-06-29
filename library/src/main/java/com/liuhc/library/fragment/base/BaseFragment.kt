@@ -1,4 +1,4 @@
-package com.liuhc.library.fragment
+package com.liuhc.library.fragment.base
 
 import android.app.Dialog
 import android.os.Bundle

@@ -3,7 +3,7 @@ package com.liuhc.mvplight.module.user.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.liuhc.library.activity.BaseMVPActivity
+import com.liuhc.library.activity.base.BaseMVPActivity
 import com.liuhc.mvplight.MainActivity
 import com.liuhc.mvplight.R
 import com.liuhc.mvplight.module.user.presenter.UserPresenter

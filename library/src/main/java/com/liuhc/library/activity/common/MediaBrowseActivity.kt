@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.liuhc.library.R
-import com.liuhc.library.activity.BaseMVPActivity
+import com.liuhc.library.activity.base.BaseMVPActivity
 import com.liuhc.library.event.DataListener
 import com.liuhc.library.event.msg.DeletePictureMsg
 import com.liuhc.library.ext.onClick

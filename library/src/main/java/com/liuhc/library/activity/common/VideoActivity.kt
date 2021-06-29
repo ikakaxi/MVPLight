@@ -2,7 +2,7 @@ package com.liuhc.library.activity.common
 
 import android.os.Bundle
 import com.liuhc.library.R
-import com.liuhc.library.activity.BaseMVPActivity
+import com.liuhc.library.activity.base.BaseMVPActivity
 import com.liuhc.library.ext.onClick
 import com.liuhc.library.presenter.BasePresenter
 import kotlinx.android.synthetic.main.common_activity_video.*

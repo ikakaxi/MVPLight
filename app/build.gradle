@@ -50,6 +50,5 @@ dependencies {
     implementation project(path: ':library')
 
     api 'com.github.lygttpod:SuperTextView:2.4.2'
-    api 'com.flyco.tablayout.androidx:FlycoTabLayout_Lib:1.0.0'
     api 'com.joooonho:selectableroundedimageview:1.0.1'
 }

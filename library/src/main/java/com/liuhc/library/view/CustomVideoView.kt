@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.lifecycle.LifecycleOwner
 import com.liuhc.library.R
-import com.liuhc.library.activity.BaseMVPActivity
+import com.liuhc.library.activity.base.BaseMVPActivity
 import com.liuhc.library.ext.loadFirstFrameFromNet
 import com.liuhc.library.ext.setVisible
 import com.shuyu.gsyvideoplayer.GSYVideoManager

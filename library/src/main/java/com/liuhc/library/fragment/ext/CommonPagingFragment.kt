@@ -1,4 +1,4 @@
-package com.liuhc.library.fragment
+package com.liuhc.library.fragment.ext
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.kennyc.view.MultiStateView
 import com.liuhc.library.R
+import com.liuhc.library.fragment.base.BaseMVPFragment
 import com.liuhc.library.presenter.BasePresenter
 import com.liuhc.library.utils.DimenUtils
 import com.liuhc.library.view.ExtSmartRefreshLayout

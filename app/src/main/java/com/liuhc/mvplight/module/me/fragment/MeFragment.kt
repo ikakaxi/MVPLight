@@ -2,7 +2,7 @@ package com.liuhc.mvplight.module.me.fragment
 
 import android.os.Bundle
 import android.view.View
-import com.liuhc.library.fragment.BaseMVPFragment
+import com.liuhc.library.fragment.base.BaseMVPFragment
 import com.liuhc.mvplight.R
 import com.liuhc.mvplight.module.me.presenter.MePresenter
 

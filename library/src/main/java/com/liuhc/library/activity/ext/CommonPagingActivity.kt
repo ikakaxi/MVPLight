@@ -1,11 +1,11 @@
-package com.liuhc.library.activity
+package com.liuhc.library.activity.ext
 
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.liuhc.library.activity.base.BaseMVPActivity
-import com.liuhc.library.fragment.CommonPagingFragment
+import com.liuhc.library.fragment.ext.CommonPagingFragment
 import com.liuhc.library.presenter.BasePresenter
 
 
@@ -27,7 +27,7 @@ abstract class CommonPagingActivity<T : BasePresenter, D, A : BaseQuickAdapter<D
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         innerCommonPagingFragment =
-            supportFragmentManager.findFragmentByTag(PAGING_FRAGMENT_TAG) as? CommonPagingActivity<T, D, A>.InnerCommonPagingFragment
+            supportFragmentManager.findFragmentByTag(PAGING_FRAGMENT_TAG) as? InnerCommonPagingFragment
                 ?: InnerCommonPagingFragment()
         showHideFragment(
             innerCommonPagingFragment!!,

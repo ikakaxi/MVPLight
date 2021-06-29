@@ -1,4 +1,4 @@
-package com.liuhc.library.activity
+package com.liuhc.library.activity.ext
 
 import android.os.Bundle
 import androidx.annotation.CallSuper
