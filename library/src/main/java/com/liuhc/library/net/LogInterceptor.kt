@@ -43,7 +43,7 @@ class LogInterceptor : Interceptor {
     }
 
     private fun isStream(mediaType: MediaType?): Boolean {
-        return when (mediaType?.subtype()) {
+        return when (mediaType?.type()) {
             "plain" -> false
             "text" -> false
             "json" -> false
