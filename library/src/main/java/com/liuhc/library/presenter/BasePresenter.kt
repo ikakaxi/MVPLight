@@ -33,11 +33,14 @@ open class BasePresenter(private val baseView: BaseView, private val scope: Coro
             e.printStackTrace()
             scope.launch(Dispatchers.Main) { baseView.onError(e.message ?: "未知错误") }
         }
+
         // UI协程上下文+处理协程异常
-        val uiCoroutineExceptionHandler = Dispatchers.Main + coroutineExceptionHandler
+        // val uiCoroutineExceptionHandler = Dispatchers.Main + coroutineExceptionHandler
+        // 这里如果加上Dispatchers.Main在并行执行async的时候会有一个递归的bug,会导致栈溢出,所以不可以加Dispatchers.Main
+
         // 使用参数的协程上下文+处理协程异常
         val blockCoroutineExceptionHandler = blockCoroutineContext + coroutineExceptionHandler
-        scope.launch(uiCoroutineExceptionHandler) {
+        scope.launch(coroutineExceptionHandler) { // 以前这里是uiCoroutineExceptionHandler
             if (showLoading) {
                 baseView.showLoading()
             }

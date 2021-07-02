@@ -1,6 +1,8 @@
 package com.liuhc.library.net
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.util.Log
 import okhttp3.*
 import okio.Buffer
@@ -17,7 +19,7 @@ import kotlin.jvm.Throws
  * @author liuhc
  */
 
-class LogInterceptor(private val isDebug: Boolean) : Interceptor {
+class LogInterceptor : Interceptor {
 
     @SuppressLint("LogNotTimber")
     @Throws(IOException::class)
@@ -78,8 +80,7 @@ class LogInterceptor(private val isDebug: Boolean) : Interceptor {
         val method: String,
         val headers: String,
         val mediaType: MediaType?,
-        val postBody: String?
-    )
+        val postBody: String?)
 
     @SuppressLint("LogNotTimber")
     private fun printResponse(time: Long, requestMsg: RequestMsg, response: Response) {
@@ -184,16 +185,22 @@ class LogInterceptor(private val isDebug: Boolean) : Interceptor {
     }
 
     private fun log(msg: String) {
-        if (isDebug) {
+        if (isDebug()) {
             Log.d(TAG, msg)
         }
     }
 
+    private var isDebug: Boolean? = null
+
+    private fun isDebug(): Boolean {
+        return isDebug!!
+    }
+
     //ctx.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE debug状态下值为2
-//    private fun initIsDebug(ctx: Context) {
-//        if (isDebug == null) {
-//            isDebug = ctx.applicationInfo != null &&
-//                    ctx.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE !== 0
-//        }
-//    }
+    fun initIsDebug(ctx: Context) {
+        if (isDebug == null) {
+            isDebug = ctx.applicationInfo != null &&
+                    ctx.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE !== 0
+        }
+    }
 }

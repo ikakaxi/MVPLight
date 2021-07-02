@@ -1,5 +1,6 @@
 package com.liuhc.library.utils
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.liuhc.library.R
  * 作者:liuhaichao
  * 创建日期：2020/10/16 on 11:20 AM
  */
+@SuppressLint("StaticFieldLeak")
 object ToastUtil {
     private lateinit var textView: TextView
     private lateinit var toast: Toast
