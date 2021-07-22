@@ -1,38 +1,43 @@
-package com.liuhc.library.event
+package com.qxhc.businessmoudle.commonwidget.event
 
 import androidx.annotation.UiThread
 import org.jetbrains.annotations.TestOnly
 
-/**
- * 描述:数据监听类
- * 作者:liuhaichao
- * 创建日期：2020-10-19 on 6:22 PM
- */
+/// author:liuhaichao
+/// description: 数据监听类
+/// create date: 2020-10-12 on 5:08 PM
 object DataListener {
 
-    private val map: MutableMap<Class<*>, MutableMap<Any, MutableList<(Any) -> Unit>>> = mutableMapOf()
+    //<Event,<Listener,List<CallBack>>>
+    private val eventClassToCallbackListMap: MutableMap<Class<*>, MutableMap<Any, MutableList<(Any) -> Unit>>> = mutableMapOf()
 
+    /**
+     * @param listener 监听者,传this
+     * @param dataClass 要监听的类型
+     * @param callback 收到事件后会回调该方法
+     */
     @Suppress("UNCHECKED_CAST")
     @UiThread
-    fun <T> listen(instance: Any, dataClass: Class<T>, callback: (T) -> Unit) {
-        var instanceToCallbackList: MutableMap<Any, MutableList<(Any) -> Unit>>? = null
-        if (!map.containsKey(dataClass)) {
-            map[dataClass] = mutableMapOf()
+    @JvmStatic
+    fun <T> listen(listener: Any, dataClass: Class<T>, callback: (T) -> Unit) {
+        if (!eventClassToCallbackListMap.containsKey(dataClass)) {
+            eventClassToCallbackListMap[dataClass] = mutableMapOf()
         }
-        instanceToCallbackList = map[dataClass]
-        var callbackList: MutableList<(Any) -> Unit>? = null
-        if (!instanceToCallbackList!!.containsKey(instance)) {
-            instanceToCallbackList[instance] = mutableListOf()
+        val eventToCallbackListMap: MutableMap<Any, MutableList<(Any) -> Unit>>? = eventClassToCallbackListMap[dataClass]
+        if (!eventToCallbackListMap!!.containsKey(listener)) {
+            eventToCallbackListMap[listener] = mutableListOf()
         }
-        callbackList = instanceToCallbackList[instance]
+        val callbackList = eventToCallbackListMap[listener]
         callbackList!!.add {
             callback(it as T)
         }
     }
 
+    @UiThread
+    @JvmStatic
     fun publish(any: Any) {
-        val instanceToCallbackList = map[any::class.java]
-        instanceToCallbackList?.forEach {
+        val eventToCallbackList = eventClassToCallbackListMap[any::class.java]
+        eventToCallbackList?.forEach {
             it.value.forEach {
                 it(any)
             }
@@ -40,27 +45,29 @@ object DataListener {
     }
 
     /**
+     * @param listener 监听者,传this
      * 在页面销毁的时候必须调用,防止内存泄漏
      */
-    fun destroy(instance: Any) {
-        val iterator = map.entries.iterator()
-        while (iterator.hasNext()) {
-            val entry = iterator.next()
-            val instanceToCallbackMap = entry.value
-            val instanceToCallbackMapKeysIterator = instanceToCallbackMap.keys.iterator()
-            while (instanceToCallbackMapKeysIterator.hasNext()) {
-                if (instanceToCallbackMapKeysIterator.next() == instance) {
-                    instanceToCallbackMap.remove(instance)
+    @UiThread
+    @JvmStatic
+    fun destroy(listener: Any) {
+        val eventClassToCallbackListEntryIterator = eventClassToCallbackListMap.entries.iterator()
+        while (eventClassToCallbackListEntryIterator.hasNext()) {
+            val eventClassToCallbackListEntry = eventClassToCallbackListEntryIterator.next()
+            val eventObjectToCallbackListMap = eventClassToCallbackListEntry.value
+            val eventObjectToCallbackMapKeysIterator = eventObjectToCallbackListMap.keys.iterator()
+            while (eventObjectToCallbackMapKeysIterator.hasNext()) {
+                if (eventObjectToCallbackMapKeysIterator.next() == listener) {
+                    eventObjectToCallbackMapKeysIterator.remove()
                     //如果某个数据没有监听者了,就把这个数据从map中删掉
-                    if (instanceToCallbackMap.isEmpty()) {
-                        map.remove(entry.key)
+                    if (eventObjectToCallbackListMap.isEmpty()) {
+                        eventClassToCallbackListEntryIterator.remove()
                     }
-                    return
                 }
             }
         }
     }
 
     @TestOnly
-    fun isEmpty() = map.isEmpty()
+    fun isEmpty() = eventClassToCallbackListMap.isEmpty()
 }
