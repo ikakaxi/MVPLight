@@ -1,4 +1,4 @@
-package com.qxhc.businessmoudle.commonwidget.event
+package com.liuhc.library.event
 
 import androidx.annotation.UiThread
 import org.jetbrains.annotations.TestOnly
@@ -13,17 +13,17 @@ object DataListener {
 
     /**
      * @param listener 监听者,传this
-     * @param dataClass 要监听的类型
+     * @param eventClass 要监听的类型
      * @param callback 收到事件后会回调该方法
      */
     @Suppress("UNCHECKED_CAST")
     @UiThread
     @JvmStatic
-    fun <T> listen(listener: Any, dataClass: Class<T>, callback: (T) -> Unit) {
-        if (!eventClassToCallbackListMap.containsKey(dataClass)) {
-            eventClassToCallbackListMap[dataClass] = mutableMapOf()
+    fun <T> listen(listener: Any, eventClass: Class<T>, callback: (T) -> Unit) {
+        if (!eventClassToCallbackListMap.containsKey(eventClass)) {
+            eventClassToCallbackListMap[eventClass] = mutableMapOf()
         }
-        val eventToCallbackListMap: MutableMap<Any, MutableList<(Any) -> Unit>>? = eventClassToCallbackListMap[dataClass]
+        val eventToCallbackListMap: MutableMap<Any, MutableList<(Any) -> Unit>>? = eventClassToCallbackListMap[eventClass]
         if (!eventToCallbackListMap!!.containsKey(listener)) {
             eventToCallbackListMap[listener] = mutableListOf()
         }
