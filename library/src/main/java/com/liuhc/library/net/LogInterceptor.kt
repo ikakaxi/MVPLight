@@ -19,7 +19,7 @@ import kotlin.jvm.Throws
  * @author liuhc
  */
 
-class LogInterceptor : Interceptor {
+object LogInterceptor : Interceptor {
 
     @SuppressLint("LogNotTimber")
     @Throws(IOException::class)
@@ -80,7 +80,8 @@ class LogInterceptor : Interceptor {
         val method: String,
         val headers: String,
         val mediaType: MediaType?,
-        val postBody: String?)
+        val postBody: String?
+    )
 
     @SuppressLint("LogNotTimber")
     private fun printResponse(time: Long, requestMsg: RequestMsg, response: Response) {
@@ -151,10 +152,8 @@ class LogInterceptor : Interceptor {
 
     private fun Double.format(digits: Int): String = java.lang.String.format("%.${digits}f", this)
 
-    companion object {
-        private val TAG = LogInterceptor::class.java.simpleName
-        private val UTF8 = Charset.forName("UTF-8")
-    }
+    private val TAG = LogInterceptor::class.java.simpleName
+    private val UTF8 = Charset.forName("UTF-8")
 
     private fun getResponseData(response: Response?): String? {
         if (response?.body() == null) {
@@ -196,11 +195,7 @@ class LogInterceptor : Interceptor {
         return isDebug!!
     }
 
-    //ctx.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE debug状态下值为2
-    fun initIsDebug(ctx: Context) {
-        if (isDebug == null) {
-            isDebug = ctx.applicationInfo != null &&
-                    ctx.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE !== 0
-        }
+    fun initIsDebug(isDebug: Boolean) {
+        this.isDebug = isDebug
     }
 }

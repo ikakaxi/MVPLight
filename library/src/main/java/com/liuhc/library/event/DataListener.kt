@@ -2,14 +2,19 @@ package com.liuhc.library.event
 
 import androidx.annotation.UiThread
 import org.jetbrains.annotations.TestOnly
+import java.lang.ref.ReferenceQueue
+import java.lang.ref.WeakReference
+
+typealias  CallBack<T> = (T) -> Unit
 
 /// author:liuhaichao
 /// description: 数据监听类
 /// create date: 2020-10-12 on 5:08 PM
 object DataListener {
 
-    //<Event,<Listener,List<CallBack>>>
-    private val eventClassToCallbackListMap: MutableMap<Class<*>, MutableMap<Any, MutableList<(Any) -> Unit>>> = mutableMapOf()
+    //事件,"监听者和该事件对应的回调"列表
+    private val map: MutableMap<Class<*>, MutableList<CallbackSoftReference>> = mutableMapOf()
+    private val queue = ReferenceQueue<Any>()
 
     /**
      * @param listener 监听者,传this
@@ -19,28 +24,25 @@ object DataListener {
     @Suppress("UNCHECKED_CAST")
     @UiThread
     @JvmStatic
-    fun <T> listen(listener: Any, eventClass: Class<T>, callback: (T) -> Unit) {
-        if (!eventClassToCallbackListMap.containsKey(eventClass)) {
-            eventClassToCallbackListMap[eventClass] = mutableMapOf()
+    fun <T> listen(listener: Any, eventClass: Class<T>, callback: CallBack<T>) {
+        clearQueue()
+        if (!map.containsKey(eventClass)) {
+            map[eventClass] = mutableListOf()
         }
-        val eventToCallbackListMap: MutableMap<Any, MutableList<(Any) -> Unit>>? = eventClassToCallbackListMap[eventClass]
-        if (!eventToCallbackListMap!!.containsKey(listener)) {
-            eventToCallbackListMap[listener] = mutableListOf()
-        }
-        val callbackList = eventToCallbackListMap[listener]
-        callbackList!!.add {
-            callback(it as T)
+        val list = map[eventClass]!!
+        val transformCallback: (Any) -> Unit = { callback(it as T) }
+        if (!list.contains(listener)) {
+            list.add(CallbackSoftReference(listener, transformCallback, queue))
         }
     }
 
     @UiThread
     @JvmStatic
-    fun publish(any: Any) {
-        val eventToCallbackList = eventClassToCallbackListMap[any::class.java]
+    fun publish(event: Any) {
+        clearQueue()
+        val eventToCallbackList = map[event::class.java]
         eventToCallbackList?.forEach {
-            it.value.forEach {
-                it(any)
-            }
+            it.callBack(event)
         }
     }
 
@@ -51,23 +53,49 @@ object DataListener {
     @UiThread
     @JvmStatic
     fun destroy(listener: Any) {
-        val eventClassToCallbackListEntryIterator = eventClassToCallbackListMap.entries.iterator()
-        while (eventClassToCallbackListEntryIterator.hasNext()) {
-            val eventClassToCallbackListEntry = eventClassToCallbackListEntryIterator.next()
-            val eventObjectToCallbackListMap = eventClassToCallbackListEntry.value
-            val eventObjectToCallbackMapKeysIterator = eventObjectToCallbackListMap.keys.iterator()
-            while (eventObjectToCallbackMapKeysIterator.hasNext()) {
-                if (eventObjectToCallbackMapKeysIterator.next() == listener) {
-                    eventObjectToCallbackMapKeysIterator.remove()
-                    //如果某个数据没有监听者了,就把这个数据从map中删掉
-                    if (eventObjectToCallbackListMap.isEmpty()) {
-                        eventClassToCallbackListEntryIterator.remove()
-                    }
+        destroy(listener.hashCode())
+    }
+
+    @UiThread
+    @JvmStatic
+    private fun destroy(listenerHashCode: Int) {
+        clearQueue()
+        val entryIterator = map.entries.iterator()
+        while (entryIterator.hasNext()) {
+            val entry = entryIterator.next()
+            val list = entry.value
+            val listIterator = list.iterator()
+            while (listIterator.hasNext()) {
+                val callbackSoftReference = listIterator.next()
+                if (callbackSoftReference.listenerHashcode == listenerHashCode) {
+                    listIterator.remove()
+                }
+                if (list.isEmpty()) {
+                    entryIterator.remove()
                 }
             }
         }
     }
 
+    fun clearQueue() {
+        var callbackSoftReference: CallbackSoftReference?
+        while (true) {
+            callbackSoftReference = queue.poll() as? CallbackSoftReference
+            if (callbackSoftReference == null) {
+                break
+            }
+            destroy(callbackSoftReference.listenerHashcode)
+        }
+    }
+
+    private class CallbackSoftReference(listener: Any, val callBack: CallBack<Any>, queue: ReferenceQueue<Any>) :
+        WeakReference<Any>(listener, queue) {
+        val listenerHashcode = listener.hashCode()
+    }
+
     @TestOnly
-    fun isEmpty() = eventClassToCallbackListMap.isEmpty()
+    fun isEmpty(): Boolean {
+        clearQueue()
+        return map.isEmpty()
+    }
 }

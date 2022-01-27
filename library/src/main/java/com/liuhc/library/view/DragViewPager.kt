@@ -166,7 +166,7 @@ class DragViewPager : ViewPager {
         post {
             pageChangeListener.onPageSelected(curPosition)
         }
-        DataListener.listen(context, ResponseOriginViewData::class.java) { msg ->
+        DataListener.listen(this, ResponseOriginViewData::class.java) { msg ->
             mOriginLeft = msg.x.toFloat()
             mOriginTop = msg.y.toFloat()
             mOriginWidth = msg.width.toFloat()
@@ -437,6 +437,7 @@ class DragViewPager : ViewPager {
 
     fun destroy() {
         removeAllViews()
+        DataListener.destroy(this)
         clearOnPageChangeListeners()
         customVideoViewMap.forEach {
             it.value.destroy()

@@ -1,8 +1,7 @@
 package com.liuhc.mvplight
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
+import android.content.pm.ApplicationInfo
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.liuhc.library.LibraryInitHelper
@@ -17,20 +16,24 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
-
 /**
  * 描述:
  * 作者:liuhaichao
  * 创建日期：2020/9/29 on 3:35 PM
  */
 class App : Application() {
+
     companion object {
+        var isDebug: Boolean = false
+            private set
         lateinit var retrofit: Retrofit
             private set
     }
 
     override fun onCreate() {
         super.onCreate()
+        //ctx.getApplicationInfo().flags and ApplicationInfo.FLAG_DEBUGGABLE 在debug状态下值为2,所以非0就是debug状态
+        isDebug = applicationInfo != null && applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE !== 0
         retrofit = createRetrofit()
         LibraryInitHelper.init(this)
         ToastUtil.init(this, R.layout.layout_toast)
@@ -47,7 +50,7 @@ class App : Application() {
             .disableHtmlEscaping()
             .create()
         retrofit = RetrofitFactory().baseUrl("https://www.wanandroid.com")
-            .interceptors(LogInterceptor(BuildConfig.DEBUG))
+            .interceptors(LogInterceptor.apply { initIsDebug(isDebug) })
             .timeOutSecond(10)
             .convertersFactories(GsonConverterFactory.create(gson))
             .callAdapterFactories(RxJava2CallAdapterFactory.create())
@@ -55,4 +58,5 @@ class App : Application() {
             .create()
         return retrofit
     }
+
 }

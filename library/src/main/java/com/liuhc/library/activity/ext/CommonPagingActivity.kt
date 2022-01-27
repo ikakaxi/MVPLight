@@ -27,7 +27,7 @@ abstract class CommonPagingActivity<T : BasePresenter, D, A : BaseQuickAdapter<D
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         innerCommonPagingFragment =
-            supportFragmentManager.findFragmentByTag(PAGING_FRAGMENT_TAG) as? InnerCommonPagingFragment
+            supportFragmentManager.findFragmentByTag(PAGING_FRAGMENT_TAG) as? CommonPagingActivity<T, D, A>.InnerCommonPagingFragment
                 ?: InnerCommonPagingFragment()
         showHideFragment(
             innerCommonPagingFragment!!,

@@ -13,13 +13,7 @@
         android:background="#FDFDFD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:tl_iconHeight="22dp"
-        app:tl_iconWidth="22dp"
-        app:tl_indicator_height="0dp"
-        app:tl_textSelectColor="#00B4FB"
-        app:tl_textUnselectColor="#A0A0A0"
-        app:tl_textsize="12sp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
