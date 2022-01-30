@@ -17,7 +17,7 @@ object DataListener {
     private val queue = ReferenceQueue<Any>()
 
     /**
-     * @param listener 监听者,传this
+     * @param listener 监听者
      * @param eventClass 要监听的类型
      * @param callback 收到事件后会回调该方法
      */
@@ -36,6 +36,9 @@ object DataListener {
         }
     }
 
+    /**
+     * @param event 要发送的事件
+     */
     @UiThread
     @JvmStatic
     fun publish(event: Any) {
@@ -47,8 +50,8 @@ object DataListener {
     }
 
     /**
-     * @param listener 监听者,传this
-     * 在页面销毁的时候必须调用,防止内存泄漏
+     * @param listener 监听者
+     * 在页面销毁的时候必须调用,防止内存泄漏,建议写到Activity或者Fragment的onDestroy方法里
      */
     @UiThread
     @JvmStatic
@@ -77,7 +80,7 @@ object DataListener {
         }
     }
 
-    fun clearQueue() {
+    private fun clearQueue() {
         var callbackSoftReference: CallbackSoftReference?
         while (true) {
             callbackSoftReference = queue.poll() as? CallbackSoftReference
