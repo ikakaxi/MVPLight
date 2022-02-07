@@ -66,6 +66,8 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.10"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+    //logger
+    api 'com.orhanobut:logger:2.2.0'
     /**
      * https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-cn
      * 对于 ViewModelScope，请使用 androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-beta01 或更高版本。

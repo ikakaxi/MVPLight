@@ -1,7 +1,6 @@
 package com.liuhc.mvplight
 
 import android.app.Application
-import android.content.pm.ApplicationInfo
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.liuhc.library.LibraryInitHelper
@@ -24,22 +23,19 @@ import java.io.File
 class App : Application() {
 
     companion object {
-        var isDebug: Boolean = false
-            private set
         lateinit var retrofit: Retrofit
             private set
     }
 
     override fun onCreate() {
         super.onCreate()
-        //ctx.getApplicationInfo().flags and ApplicationInfo.FLAG_DEBUGGABLE 在debug状态下值为2,所以非0就是debug状态
-        isDebug = applicationInfo != null && applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE !== 0
         retrofit = createRetrofit()
         LibraryInitHelper.init(this)
         ToastUtil.init(this, R.layout.layout_toast)
     }
 
     private fun createRetrofit(): Retrofit {
+        //ctx.getApplicationInfo().flags and ApplicationInfo.FLAG_DEBUGGABLE 在debug状态下值为2,所以非0就是debug状态
         // 指定缓存路径,缓存大小100Mb
         val cacheFile = File(SDCardUtil.getDiskCacheRootDir(this), "HttpCache")
         val cache = Cache(cacheFile, 1024 * 1024 * 100)
@@ -50,7 +46,7 @@ class App : Application() {
             .disableHtmlEscaping()
             .create()
         retrofit = RetrofitFactory().baseUrl("https://www.wanandroid.com")
-            .interceptors(LogInterceptor.apply { initIsDebug(isDebug) })
+            .interceptors(LogInterceptor)
             .timeOutSecond(10)
             .convertersFactories(GsonConverterFactory.create(gson))
             .callAdapterFactories(RxJava2CallAdapterFactory.create())

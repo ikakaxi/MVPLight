@@ -1,16 +1,14 @@
 package com.liuhc.library.net
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.util.Log
+import com.liuhc.library.ext.format
+import com.orhanobut.logger.Logger
 import okhttp3.*
 import okio.Buffer
 import okio.GzipSource
 import java.io.IOException
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
-import kotlin.jvm.Throws
 
 /**
  * 打印网络请求的日志类
@@ -21,7 +19,6 @@ import kotlin.jvm.Throws
 
 object LogInterceptor : Interceptor {
 
-    @SuppressLint("LogNotTimber")
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -43,25 +40,22 @@ object LogInterceptor : Interceptor {
     }
 
     private fun isStream(mediaType: MediaType?): Boolean {
-        return when (mediaType?.type()) {
-            "plain" -> false
-            "text" -> false
-            "json" -> false
-            "html" -> false
-            else -> true
+        if (mediaType?.subtype()?.contains("plain") == true
+            || mediaType?.subtype()?.contains("json") == true
+            || mediaType?.subtype()?.contains("html") == true
+        ) {
+            return false
         }
+        return true
     }
 
-    @SuppressLint("LogNotTimber")
     private fun printRequest(request: Request): RequestMsg {
         val url = request.url().toString()
         val method = request.method()
         val headers = getHeadersString(request.headers())
         val mediaType = request.body()?.contentType()
         val requestStrBuffer = StringBuffer()
-        Log.i(TAG, "---------------")
-        requestStrBuffer.append("===>发送请求: ")
-        requestStrBuffer.append("$url\n")
+        requestStrBuffer.append("===>发送请求:$url\n ")
         requestStrBuffer.append("method: $method\n")
         requestStrBuffer.append("headers: $headers")
         mediaType?.let { requestStrBuffer.append("Content-Type: $it\n") }
@@ -71,7 +65,7 @@ object LogInterceptor : Interceptor {
             postParam = request.body()?.let(::getPostParam)
             postParam?.let { requestStrBuffer.append("请求参数body: $it\n") }
         }
-        Log.i(TAG, requestStrBuffer.toString())
+        log(requestStrBuffer.toString(), Log.INFO)
         return RequestMsg(url, method, headers, mediaType, postParam)
     }
 
@@ -83,7 +77,6 @@ object LogInterceptor : Interceptor {
         val postBody: String?
     )
 
-    @SuppressLint("LogNotTimber")
     private fun printResponse(time: Long, requestMsg: RequestMsg, response: Response) {
         val requestUrl = requestMsg.url
         val responseUrl = response.request().url().toString()
@@ -99,7 +92,6 @@ object LogInterceptor : Interceptor {
         }
         val data = getResponseData(response)
         val responseStrBuffer = StringBuffer()
-        log("---------------")
         responseStrBuffer.append("<===接收响应: ")
         //请求的url
         if (requestUrl == responseUrl) {
@@ -121,10 +113,8 @@ object LogInterceptor : Interceptor {
         responseStrBuffer.append("数据大小: ${formatBytes(contentLength)}\n")
         if (!isStream(mediaType)) {
             responseStrBuffer.append("数据: $data\n")
-            log(responseStrBuffer.toString())
-        } else {
-            log(responseStrBuffer.toString())
         }
+        log(responseStrBuffer.toString())
     }
 
     private fun formatBytes(bytes: Long): String {
@@ -150,9 +140,6 @@ object LogInterceptor : Interceptor {
         return result.toString()
     }
 
-    private fun Double.format(digits: Int): String = java.lang.String.format("%.${digits}f", this)
-
-    private val TAG = LogInterceptor::class.java.simpleName
     private val UTF8 = Charset.forName("UTF-8")
 
     private fun getResponseData(response: Response?): String? {
@@ -183,19 +170,14 @@ object LogInterceptor : Interceptor {
         return buffer.readString(charset)
     }
 
-    private fun log(msg: String) {
-        if (isDebug()) {
-            Log.d(TAG, msg)
+    private fun log(msg: String, logLevel: Int = Log.DEBUG) {
+        when (logLevel) {
+            Log.INFO -> {
+                Logger.i(msg)
+            }
+            else -> {
+                Logger.d(msg)
+            }
         }
-    }
-
-    private var isDebug: Boolean? = null
-
-    private fun isDebug(): Boolean {
-        return isDebug!!
-    }
-
-    fun initIsDebug(isDebug: Boolean) {
-        this.isDebug = isDebug
     }
 }

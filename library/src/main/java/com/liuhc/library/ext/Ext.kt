@@ -161,3 +161,5 @@ fun ImageView.loadFirstFrameFromLocal(
         .load(url)
         .into(this)
 }
+
+fun Double.format(digits: Int): String = java.lang.String.format("%.${digits}f", this)
