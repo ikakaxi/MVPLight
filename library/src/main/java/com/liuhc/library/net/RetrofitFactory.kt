@@ -1,6 +1,8 @@
 package com.liuhc.library.net
 
+import android.annotation.SuppressLint
 import okhttp3.Cache
+import okhttp3.EventListener
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
@@ -51,8 +53,21 @@ class RetrofitFactory {
     //如果该值不为空将会使用该值
     private var okHttpClient: OkHttpClient? = null
 
+    //网络事件监听器工厂
+    private var eventListenerFactory: EventListener.Factory? = null
+
     fun baseUrl(baseUrl: String): RetrofitFactory {
         this.baseUrl = baseUrl
+        return this
+    }
+
+    fun okHttpClient(okHttpClient: OkHttpClient): RetrofitFactory {
+        this.okHttpClient = okHttpClient
+        return this
+    }
+
+    fun eventListenerFactory(eventListenerFactory: EventListener.Factory): RetrofitFactory {
+        this.eventListenerFactory = eventListenerFactory
         return this
     }
 
@@ -121,6 +136,7 @@ class RetrofitFactory {
             .connectTimeout(timeOutSecond, TimeUnit.SECONDS)
             .apply {
                 interceptors.map(::addInterceptor)
+                eventListenerFactory?.let(::eventListenerFactory)
             }
             .build()
     }
@@ -168,6 +184,7 @@ class RetrofitFactory {
 
     private inline fun <reified T> Array<*>.fetch(): T = first { it is T } as T
 
+    @SuppressLint("CustomX509TrustManager")
     private inner class X509TrustManagerImpl(private val localTrustManager: X509TrustManager) :
         X509TrustManager {
 
