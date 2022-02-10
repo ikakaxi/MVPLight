@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.liuhc.library.LibraryInitHelper
+import com.liuhc.library.net.HttpEventListener
 import com.liuhc.library.net.LogInterceptor
 import com.liuhc.library.net.NullTypeAdapterFactory
 import com.liuhc.library.net.RetrofitFactory

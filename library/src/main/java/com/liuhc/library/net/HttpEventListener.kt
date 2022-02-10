@@ -1,4 +1,4 @@
-package com.liuhc.mvplight
+package com.liuhc.library.net
 
 import com.orhanobut.logger.Logger
 import okhttp3.*
@@ -26,12 +26,14 @@ class HttpEventListener(
      */
     private var callStartNanos: Long
 ) : EventListener() {
+    private val callStartInit = callStartNanos
     private val sbLog: StringBuilder = StringBuilder(url.toString()).append(" callId=").append(callId).append(":\n")
     private fun recordEventLog(name: String) {
         val elapseNanos = System.nanoTime() - callStartNanos
         callStartNanos = System.nanoTime()
         sbLog.append(String.format(Locale.CHINA, "%.3fms-%s", elapseNanos / 1_000_000.0, name)).append("\n")
         if (name.equals("callEnd", ignoreCase = true) || name.equals("callFailed", ignoreCase = true)) {
+            sbLog.append("总耗时:${(callStartNanos - callStartInit) / 1_000_000.0}ms")
             //打印出每个步骤的时间点
             Logger.i(sbLog.toString())
         }
